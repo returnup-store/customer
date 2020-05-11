@@ -9,16 +9,15 @@ const SearchBox = props => {
     <View style={Styles.HomeSearchArea}>
       <View style={Styles.HomeSearchInputContainer}>
         <TextInput
-          placeholder={'请输入关键词进行搜索'}
+          placeholder={'keyword'}
           style={Styles.HomeSearchInput}
           onChangeText={props.inputProc}
         />
-        <FastImage source={Images.Search} style={Styles.HomeSearchImg} />
       </View>
       <TouchableOpacity
         onPress={props.handleSearch}
         style={Styles.HomeSearchBtn}>
-        <Text>搜索</Text>
+        <Text>search</Text>
       </TouchableOpacity>
     </View>
   );

@@ -11,13 +11,11 @@ export default function NewsCard({item, proc}) {
     <TouchableOpacity style={Style.CardWrap} onPress={proc}>
       <Card style={{padding: 12, flexDirection: 'row'}}>
         <View style={{flex: 1}}>
-          <View style={Style.ImageSection}>
-            <FastImage style={Style.AvatarStyle} source={Images.maleProfile} />
-          </View>
+          <View style={Style.ImageSection} />
         </View>
         <View style={{flex: 5}}>
           <View>
-            <Text>管理员</Text>
+            <Text>returnup bot</Text>
           </View>
           <View style={Style.CardDescription}>
             <Text numberOfLines={2} style={Style.CardDescriptionText}>
@@ -26,7 +24,7 @@ export default function NewsCard({item, proc}) {
           </View>
           <View>
             <Text style={Style.CardLocationText}>
-              {moment(item.createAt).format('M月D日 ')}
+              {moment(item.createAt).format('MM/DD')}
             </Text>
           </View>
         </View>

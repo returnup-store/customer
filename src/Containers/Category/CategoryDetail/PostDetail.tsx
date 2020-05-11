@@ -148,18 +148,9 @@ export default function PostDetail({navigation}) {
               <View style={Styles.AvatarPhotoContainer}>
                 <FastImage
                   style={Styles.AvatarPhoto}
-                  source={
-                    item.user
-                      ? item.user.photo
-                        ? {
-                            uri:
-                              baseUrl +
-                              'download/photo?path=' +
-                              item.user.photo,
-                          }
-                        : Images.maleProfile
-                      : Images.maleProfile
-                  }
+                  source={{
+                    uri: baseUrl + 'download/photo?path=' + item.user.photo,
+                  }}
                   resizeMode="cover"
                 />
                 <View style={{flex: 3}} />
@@ -177,22 +168,18 @@ export default function PostDetail({navigation}) {
                 </View>
                 <View style={{paddingTop: 5}}>
                   <Text style={{color: Colors.grey, fontSize: 12}}>
-                    {moment(item.createAt).format('M月D日 hh时mm分')}
+                    {moment(item.createAt).format('MM/DD hh:mm')}
                   </Text>
                 </View>
                 {item.fee > 0 && (
                   <View style={{paddingTop: 5}}>
                     <Text style={{color: Colors.red, fontSize: 12}}>
-                      {'赏 ¥ '}
+                      {'$'}
                       {item.fee}
                     </Text>
                   </View>
                 )}
                 <View style={Styles.UserLocationContainer}>
-                  <FastImage
-                    source={Images.BlueMapIcon}
-                    style={Styles.UserLocationImg}
-                  />
                   <Text style={{color: Colors.grey, paddingLeft: 5}}>
                     {item.place}
                   </Text>
@@ -204,27 +191,8 @@ export default function PostDetail({navigation}) {
                     flexDirection: 'row',
                     alignItems: 'flex-end',
                     justifyContent: 'space-around',
-                  }}>
-                  {item.fee > 0 && (
-                    <View style={Styles.FeeBtn}>
-                      <View style={Styles.FeeBtn2}>
-                        <View style={Styles.FeeBtn3}>
-                          <Text style={{color: '#fff'}}>赏</Text>
-                        </View>
-                      </View>
-                    </View>
-                  )}
-                  {item.kind === 'found' && (
-                    <View style={Styles.PickBtn}>
-                      <Text style={{color: '#fff'}}>拾</Text>
-                    </View>
-                  )}
-                  {item.kind === 'lost' && (
-                    <View style={Styles.LostBtn}>
-                      <Text style={{color: '#fff'}}>丢</Text>
-                    </View>
-                  )}
-                </View>
+                  }}
+                />
                 <View
                   style={{
                     flex: 1,
@@ -233,7 +201,7 @@ export default function PostDetail({navigation}) {
                   }}>
                   {item.user._id !== state.user._id && (
                     <RoundBtn
-                      RoundBtnTitle={'联系TA'}
+                      RoundBtnTitle={'contact'}
                       RoundBtnColor={'MainYellow'}
                       proc={() => sendMsg(item)}
                     />
@@ -292,15 +260,14 @@ export default function PostDetail({navigation}) {
         closeDialog={() => {
           setDlgVisible(false);
         }}
-        cancelText={'取消'}
-        submitText={'确认'}
+        cancelText={'cancel'}
+        submitText={'submit'}
       />
       <View style={Styles.CommentInputContainer}>
         <View style={Styles.CommentInputWrap} />
         <TouchableOpacity
           style={Styles.LikeCommentContainer}
           onPress={increaseLikesCnt}>
-          <Image source={Images.RedLike} />
           <Text>{item.likes.length}</Text>
         </TouchableOpacity>
       </View>

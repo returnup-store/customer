@@ -28,22 +28,8 @@ export default function StuffCard({item, navigation}) {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('UserInfo', {item: item.user});
-              }}>
-              <FastImage
-                style={Style.AvatarStyle}
-                source={
-                  item.user
-                    ? item.user.photo
-                      ? {
-                          uri:
-                            baseUrl + 'download/photo?path=' + item.user.photo,
-                        }
-                      : Images.maleProfile
-                    : Images.maleProfile
-                }
-                resizeMode="cover"
-              />
-            </TouchableOpacity>
+              }}
+            />
           </View>
           <View style={{flex: 5}}>
             <View style={{flexDirection: 'column'}}>
@@ -80,7 +66,7 @@ export default function StuffCard({item, navigation}) {
                 </View>
                 <View style={{flexDirection: 'row', flex: 1}}>
                   {item.user._id === state.user._id && (
-                    <View style={{flex: 11}}></View>
+                    <View style={{flex: 11}} />
                   )}
 
                   <View style={{flex: 13}}>
@@ -146,10 +132,6 @@ export default function StuffCard({item, navigation}) {
           </View>
           <View style={Style.CardLocation}>
             <View style={Style.CardLocationGroup}>
-              <FastImage
-                style={Style.CardLocationImg}
-                source={Images.BlueMapIcon}
-              />
               <Text style={Style.CardLocationText}>{item.place}</Text>
             </View>
           </View>

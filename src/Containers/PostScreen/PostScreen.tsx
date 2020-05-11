@@ -39,22 +39,21 @@ const PostScreen = props => {
     console.log(photo.length, '***********************');
 
     if (photo.length > 5) {
-      Toast.show('您选择的图像不能超过6张。');
+      Toast.show('select 6 picutre at max');
       return;
     }
 
     if (Platform.OS === 'android') {
       const ret = await checkCamLibPermission();
-      console.log('111111111111111', ret);
       if (!ret) return;
     }
 
     ImagePicker.showImagePicker(
       {
-        title: '选择一张照片',
-        cancelButtonTitle: '取消',
-        takePhotoButtonTitle: '拍照',
-        chooseFromLibraryButtonTitle: '从照片中选择',
+        title: 'select 1 picture',
+        cancelButtonTitle: 'cancel',
+        takePhotoButtonTitle: 'take',
+        chooseFromLibraryButtonTitle: 'take a picture',
       },
       response => {
         if (response.didCancel) {
@@ -75,7 +74,7 @@ const PostScreen = props => {
             .then(({uri, path, name, size}) => {
               console.log('uri', uri, 'path', path, 'name', name, 'size', size);
               setPhoto([...photo, {uri, name, type: 'image/jpeg'}]);
-              if (photo.length > 4) Toast.show('您选择所有最多6张图像');
+              if (photo.length > 4) Toast.show('select 6 images at max');
             })
             .catch(err => {
               console.log('resize error... ... ...', err);
@@ -87,7 +86,7 @@ const PostScreen = props => {
 
   async function handleSubmit() {
     if (tag === '' || place === '' || address === '' || description === '') {
-      Toast.show('正确输入值!');
+      Toast.show('input error!');
       return;
     }
 
@@ -123,7 +122,7 @@ const PostScreen = props => {
               }
             })
             .catch(function(error) {
-              Toast.show('错误');
+              Toast.show('error');
             });
         })
         .catch(error => {
@@ -150,7 +149,7 @@ const PostScreen = props => {
           }
         })
         .catch(function(error) {
-          Toast.show('错误');
+          Toast.show('error');
         });
     }
   }
@@ -166,41 +165,24 @@ const PostScreen = props => {
 
       <Header
         back={() => props.navigation.navigate('AppHome')}
-        label={'详细情况'}
+        label={'details'}
       />
 
       <View style={Styles.StuffInfoContainer}>
         <CustomFormSelect
-          CustomFormSelectLabel={'物品类型'}
-          CustomFormSelectPlaceholder={'请选择类型'}
+          CustomFormSelectLabel={'category'}
+          CustomFormSelectPlaceholder={'select category'}
           procFunc={value => setTag(value)}
         />
         <View style={Styles.FindStuffAreaContainer}>
           <View>
-            <Text>选择地点</Text>
-          </View>
-          <View style={{flex: 1}}>
-            <ChinaRegionWheelPicker
-              onSubmit={params =>
-                setPlace(`${params.province},${params.city},${params.area}`)
-              }
-              onCancel={() => console.log('cancel')}>
-              <Text
-                style={{
-                  backgroundColor: '#FFF',
-                  paddingVertical: 10,
-                  textAlign: 'center',
-                  color: 'black',
-                }}>
-                {place || '点击去选择地区'}
-              </Text>
-            </ChinaRegionWheelPicker>
+            <Text>address</Text>
           </View>
         </View>
 
         <View style={Styles.FindStuffDetailAreaContainer}>
           <View>
-            <Text>详细地址</Text>
+            <Text>address</Text>
           </View>
           <View style={{flex: 1}}>
             <TextInput
@@ -211,7 +193,7 @@ const PostScreen = props => {
         </View>
         <View style={Styles.FindStuffDetailAreaContainer}>
           <View>
-            <Text>联系电话</Text>
+            <Text>phone</Text>
           </View>
           <View style={{flex: 1}}>
             <TextInput
@@ -223,7 +205,7 @@ const PostScreen = props => {
         </View>
       </View>
       <View style={Styles.FindStuffPriceBtnContainer}>
-        <Text>悬赏金额</Text>
+        <Text>price</Text>
         <TextInput
           style={Styles.FindStuffPriceInput}
           onChangeText={value => setFee(value)}
@@ -233,7 +215,7 @@ const PostScreen = props => {
       </View>
       <View style={Styles.FindStuffFooter}>
         <View>
-          <Text>物品描述</Text>
+          <Text>description</Text>
           <TextInput
             style={Styles.FindStuffTextArea}
             multiline={true}
@@ -245,11 +227,7 @@ const PostScreen = props => {
           <TouchableOpacity
             style={Styles.FindStuffImgUploadWrap}
             onPress={handlePhoto}>
-            <FastImage
-              source={Images.Camera}
-              style={Styles.FindStuffImgUpload}
-            />
-            <Text style={{color: Colors.grey}}>添加图片</Text>
+            <Text style={{color: Colors.grey}}>take a picture</Text>
           </TouchableOpacity>
         </View>
 

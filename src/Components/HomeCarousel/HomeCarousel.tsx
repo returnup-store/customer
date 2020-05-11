@@ -24,28 +24,7 @@ export default function HomeCarousel() {
           <FastImage
             resizeMode="stretch"
             style={styles.image}
-            source={Images.HomeBannerImg}
-          />
-        </View>
-        <View style={styles.slide}>
-          <FastImage
-            resizeMode="stretch"
-            style={styles.image}
-            source={Images.HomeCarousel1}
-          />
-        </View>
-        <View style={styles.slide}>
-          <FastImage
-            resizeMode="stretch"
-            style={styles.image}
-            source={Images.HomeCarousel2}
-          />
-        </View>
-        <View style={styles.slide}>
-          <FastImage
-            resizeMode="stretch"
-            style={styles.image}
-            source={Images.HomeCarousel3}
+            source={Images.Slide1}
           />
         </View>
       </Swiper>

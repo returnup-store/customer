@@ -220,7 +220,7 @@ const Profile = props => {
         }}
       />
       <ImageBackground
-        source={Images.ProfileBannerImg}
+        source={Images.Slide1}
         style={Style.ProfileHeaderContainer}>
         <View style={Style.ProfileHeaderTitleContainer}>
           <Text style={Style.ProfileHeaderTitleText}>我的</Text>
@@ -237,28 +237,21 @@ const Profile = props => {
               source={
                 photo.uri
                   ? photo
-                  : state.user.photo
-                  ? {
+                  : {
                       uri: baseUrl + 'download/photo?path=' + state.user.photo,
                     }
-                  : Images.maleProfile
               }
               style={Style.ProfileHeaderAvatarImg}
               // resizeMode="cover"
             />
-            <FastImage source={Images.Camera} style={Style.HeaderImgBadge} />
           </TouchableOpacity>
           <View>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
                 onPress={() => {
                   setIsEdit(!isEdit);
-                }}>
-                <FastImage
-                  source={Images.TextEdit}
-                  style={Style.HeaderTextBadge}
-                />
-              </TouchableOpacity>
+                }}
+              />
             </View>
             <Text style={{color: Colors.white, fontSize: 12}}>
               {state.user.name}
@@ -283,7 +276,7 @@ const Profile = props => {
                       color: 'white',
                       marginTop: 3,
                     }}>
-                    保存
+                    save
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -298,22 +291,14 @@ const Profile = props => {
             onPress={() => {
               handleModal('service');
             }}>
-            <FastImage
-              source={Images.ProfileBtnPublished}
-              style={Style.ProfileBtnPublishedImg}
-            />
-            <Text>服务</Text>
+            <Text>service</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={Style.ProfileLikeContainer}
             onPress={() => {
               handleModal('phone');
             }}>
-            <FastImage
-              source={Images.ProfileBtnLike}
-              style={Style.ProfileBtnLikeImg}
-            />
-            <Text>联系我们</Text>
+            <Text>contact us</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -325,17 +310,7 @@ const Profile = props => {
           }}>
           <View style={Style.ProfileUpdateWrap}>
             <View style={Style.ProfileUpdateLeft}>
-              <FastImage
-                source={Images.ProfileUpdate}
-                style={Style.ProfileUpdateImg}
-              />
-              <Text>检查更新</Text>
-            </View>
-            <View>
-              <FastImage
-                source={Images.RightArrow}
-                style={Style.ProfileRightArrow}
-              />
+              <Text>check update</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -346,17 +321,7 @@ const Profile = props => {
           }}>
           <View style={Style.ProfileContactUsWrap}>
             <View style={Style.ProfileContactUsLeft}>
-              <FastImage
-                source={Images.ProfileContactus}
-                style={Style.ProfileContactImg}
-              />
               <Text>About us</Text>
-            </View>
-            <View>
-              <FastImage
-                source={Images.RightArrow}
-                style={Style.ProfileRightArrow}
-              />
             </View>
           </View>
         </TouchableOpacity>
@@ -367,24 +332,14 @@ const Profile = props => {
           }}>
           <View style={Style.ProfileContactUsWrap}>
             <View style={Style.ProfileContactUsLeft}>
-              <FastImage
-                source={Images.ProfileWithFriend}
-                style={Style.ProfileShareImg}
-              />
-              <Text>分享给朋友</Text>
-            </View>
-            <View>
-              <FastImage
-                source={Images.RightArrow}
-                style={Style.ProfileRightArrow}
-              />
+              <Text>share</Text>
             </View>
           </View>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={Style.BottomContainer} onPress={handleSignout}>
         <View style={Style.BottomBtnWrap}>
-          <Text style={Style.BottomBtnText}>安全退出</Text>
+          <Text style={Style.BottomBtnText}>sign out</Text>
         </View>
       </TouchableOpacity>
       <Modal
@@ -440,7 +395,7 @@ const Profile = props => {
             <View style={{flex: 1}} />
             <View style={{width: '50%'}}>
               <Button
-                title="关闭"
+                title="close"
                 onPress={() => {
                   setIsModalVisible(!isModalVisible);
                 }}

@@ -9,15 +9,13 @@ import moment from 'moment';
 export default function Card({item, proc}) {
   return (
     <TouchableOpacity style={Style.CardWrap} onPress={proc}>
-      <View style={{flex: 1}}>
-        <FastImage style={Style.AvatarStyle} source={Images.maleProfile} />
-      </View>
+      <View style={{flex: 1}} />
       <View
         style={{
           flex: 10,
           paddingLeft: 30,
         }}>
-        <Text>管理员</Text>
+        <Text>returnup bot</Text>
 
         <View style={Style.CardDescription}>
           <Text numberOfLines={2} style={Style.CardDescriptionText}>

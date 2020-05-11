@@ -167,12 +167,8 @@ function HomeView(props) {
               }}
               onPress={() => {
                 setIsGpsDlgVisible(true);
-              }}>
-              <FastImage
-                source={Images.DownArrow}
-                style={{width: 10, height: 10, margin: 3}}
-              />
-            </TouchableOpacity>
+              }}
+            />
           </View>
           <View style={styles.HomeBannerContainer}>
             <HomeCarousel />
@@ -187,10 +183,6 @@ function HomeView(props) {
                   onChangeText={value => {
                     setKeyTmp(value);
                   }}
-                />
-                <FastImage
-                  source={Images.Search}
-                  style={styles.HomeSearchImg}
                 />
               </View>
               <TouchableOpacity
@@ -212,60 +204,31 @@ function HomeView(props) {
                   alignItems: 'center',
                 }}
                 onPress={() =>
-                  props.navigation.navigate('StuffPostView', {kind: 'lost'})
+                  props.navigation.navigate('PostView', {kind: 'lost'})
                 }>
-                <FastImage
-                  style={{width: 52, height: 52}}
-                  source={Images.HomeFindBtn}
-                />
-                <Text style={{fontSize: 12}}>寻物启事</Text>
+                <Text style={{fontSize: 12}}>Posts</Text>
               </TouchableOpacity>
             </View>
-            <View style={{flexDirection: 'column', alignItems: 'center'}}>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                onPress={() =>
-                  props.navigation.navigate('StuffPostView', {kind: 'found'})
-                }>
-                <FastImage
-                  style={{width: 52, height: 52}}
-                  source={Images.HomeGetBtn}
-                />
-                <Text style={{fontSize: 12}}>失物招领</Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              onPress={() =>
-                props.navigation.navigate('NewsView', {kind: 'found'})
-              }>
-              <View style={{flexDirection: 'column', alignItems: 'center'}}>
-                <FastImage
-                  style={{width: 52, height: 52}}
-                  source={Images.HomeNewsBtn}
-                />
-                <Text style={{fontSize: 12}}>News</Text>
-              </View>
-            </TouchableOpacity>
           </View>
-          <View style={styles.HomeCategoryContainer}>
-            <View style={styles.HomeNotificationArea}>
-              <FastImage
-                source={Images.RedSound}
-                style={{width: 20, height: 18}}
-              />
-              <Text style={styles.HomeNotificationText} numberOfLines={2}>
-                {state.last_note.content ? state.last_note.content : ''}
-              </Text>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            onPress={() =>
+              props.navigation.navigate('NewsView', {kind: 'found'})
+            }>
+            <View style={{flexDirection: 'column', alignItems: 'center'}}>
+              <Text style={{fontSize: 12}}>News</Text>
             </View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.HomeCategoryContainer}>
+          <View style={styles.HomeNotificationArea}>
+            <Text style={styles.HomeNotificationText} numberOfLines={2}>
+              {state.last_note.content ? state.last_note.content : ''}
+            </Text>
           </View>
         </View>
       </ScrollView>

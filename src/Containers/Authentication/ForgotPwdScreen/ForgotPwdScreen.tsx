@@ -43,16 +43,14 @@ export default function ForgotPWScreen(props) {
 
   async function handleSubmit() {
     if (otp === '' || phone === '' || password === '') {
-      Toast.show('正确输入值！');
+      Toast.show('input error！');
       return;
     }
 
     if (!sentOtp) {
-      Toast.show('发送验证码！');
+      Toast.show('sent verification code！');
       return;
     }
-
-    console.log(phone, password);
 
     axios
       .post(baseUrl + 'auth/resetpwd', {
@@ -83,20 +81,16 @@ export default function ForgotPWScreen(props) {
         <View style={Styles.SignUpHeader}>
           <TouchableOpacity
             style={{flex: 1}}
-            onPress={() => props.navigation.navigate('Signin')}>
-            <FastImage
-              source={Images.whiteLeftChevron}
-              style={Styles.SignUpHeaderImg}
-            />
-          </TouchableOpacity>
-          <Text style={{fontSize: 20, color: '#fff'}}>用户注册</Text>
-          <Text style={{flex: 1}}></Text>
+            onPress={() => props.navigation.navigate('Signin')}
+          />
+          <Text style={{fontSize: 20, color: '#fff'}}>Forgot password</Text>
+          <Text style={{flex: 1}} />
         </View>
         <View style={Styles.SignFormContainer}>
           <View style={Styles.FormInput}>
             <CustomPhoneInput
-              CustomLabel={'手机'}
-              CustomPlaceholder={'请输入账号或手机号码'}
+              CustomLabel={'phone'}
+              CustomPlaceholder={'input phone number'}
               proc={value => setPhone(value)}
               proc2={() => {
                 sendOTP();
@@ -106,8 +100,8 @@ export default function ForgotPWScreen(props) {
           </View>
           <View style={Styles.FormInput}>
             <CustomTextInput
-              CustomLabel={'验证码'}
-              CustomPlaceholder={'验证码'}
+              CustomLabel={'verification code'}
+              CustomPlaceholder={'verification code'}
               proc={value => {
                 setOtp(value);
               }}
@@ -115,8 +109,8 @@ export default function ForgotPWScreen(props) {
           </View>
           <View style={Styles.FormInput}>
             <CustomPwdInput
-              CustomPwdLabel={'密码'}
-              CustomPwdPlaceholder={'请输入密码'}
+              CustomPwdLabel={'password'}
+              CustomPwdPlaceholder={'password'}
               proc={value => {
                 setPassword(value);
               }}
@@ -124,7 +118,7 @@ export default function ForgotPWScreen(props) {
           </View>
 
           <View style={Styles.SignBtn}>
-            <FormCommonBtn CustomBtnTitle={'完成'} proc={handleSubmit} />
+            <FormCommonBtn CustomBtnTitle={'complete'} proc={handleSubmit} />
           </View>
         </View>
       </View>

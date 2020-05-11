@@ -16,25 +16,20 @@ export default function StuffPostDetail({navigation}) {
   return (
     <ScrollView style={{backgroundColor: '#f4f6f8'}}>
       <View>
-        <Header back={() => navigation.goBack()} label={'详情'} />
+        <Header back={() => navigation.goBack()} label={'details'} />
 
         <View style={Styles.UserInfoContainer}>
           <View style={Styles.AvatarContainer}>
             <View style={Styles.AvatarPhotoContainer}>
-              <FastImage
-                style={Styles.AvatarPhoto}
-                source={Images.maleProfile}
-              />
-
               <View style={Styles.UserNameContainer}>
                 <View style={Styles.UserNameWrap}>
                   <View>
-                    <Text>{'管理员'}</Text>
+                    <Text>{'returnup bot'}</Text>
                   </View>
                 </View>
                 <View>
                   <Text style={{color: Colors.grey}}>
-                    {moment(item.createAt).format('M月D日 ')}
+                    {moment(item.createAt).format('MM/DD')}
                   </Text>
                 </View>
               </View>

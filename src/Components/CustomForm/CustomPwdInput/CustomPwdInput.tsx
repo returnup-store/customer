@@ -25,11 +25,13 @@ export default function CustomPwdInput(props) {
           activeOpacity={0.8}
           style={Styles.touachableButton}
           onPress={() => setHidePassword(!hidePassword)}>
-          <Image
-            resizeMode="contain"
-            style={{width: 25}}
-            source={hidePassword ? Images.HideIcon : Images.ShowIcon}
-          />
+          {
+            // <Image
+            //   resizeMode="contain"
+            //   style={{width: 25}}
+            //   source={hidePassword ? Images.HideIcon : Images.ShowIcon}
+            // />
+          }
         </TouchableOpacity>
       </View>
     </View>

@@ -219,14 +219,9 @@ export default function ChatRoom(props) {
                   </View>
                   <FastImage
                     style={{width: 33, height: 33, borderRadius: 50}}
-                    source={
-                      msg.user.photo
-                        ? {
-                            uri:
-                              baseUrl + 'download/photo?path=' + msg.user.photo,
-                          }
-                        : Images.maleProfile
-                    }
+                    source={{
+                      uri: baseUrl + 'download/photo?path=' + msg.user.photo,
+                    }}
                     resizeMode="cover"
                   />
                 </View>
@@ -239,14 +234,9 @@ export default function ChatRoom(props) {
                   }}>
                   <FastImage
                     style={{width: 33, height: 33, borderRadius: 50}}
-                    source={
-                      msg.user.photo
-                        ? {
-                            uri:
-                              baseUrl + 'download/photo?path=' + msg.user.photo,
-                          }
-                        : Images.maleProfile
-                    }
+                    source={{
+                      uri: baseUrl + 'download/photo?path=' + msg.user.photo,
+                    }}
                     resizeMode="cover"
                   />
                   <View

@@ -21,9 +21,9 @@ export default function Profile(props) {
   return (
     <ScrollView style={Styles.ProfileContainer}>
       <ImageBackground
-        source={Images.ProfileBannerImg}
+        source={Images.Slide1}
         style={Styles.ProfileHeaderContainer}>
-        <Header back={props.navigation.goBack()} label={'个人资料'} />
+        <Header back={props.navigation.goBack()} label={'profile'} />
 
         <View style={Styles.ProfileHeaderAvatarContainer}>
           <View style={Styles.ProfileHeaderAvatarWrap}>
@@ -34,7 +34,7 @@ export default function Profile(props) {
               style={Styles.ProfileHeaderAvatarImg}
               resizeMode="cover"
             />
-            <Text style={Styles.ProfileHeaderAvatarText}>气候品牌亮相</Text>
+            <Text style={Styles.ProfileHeaderAvatarText}>take a picture</Text>
           </View>
         </View>
       </ImageBackground>
@@ -42,11 +42,6 @@ export default function Profile(props) {
         <TouchableOpacity style={Styles.ProfileUpdateContainer}>
           <View style={Styles.ProfileUpdateWrap}>
             <View style={Styles.ProfileUpdateLeft}>
-              <FastImage
-                source={Images.BlueMapIcon}
-                style={Styles.ProfileUpdateImg}
-                resizeMode="cover"
-              />
               <Text>
                 {item.location && item.location.city ? item.location.city : ''}
               </Text>
@@ -56,11 +51,7 @@ export default function Profile(props) {
         <TouchableOpacity style={Styles.ProfileContactUsContainer}>
           <View style={Styles.ProfileContactUsWrap}>
             <View style={Styles.ProfileContactUsLeft}>
-              <FastImage
-                source={Images.ProfileContactus}
-                style={Styles.ProfileContactUsImg}
-              />
-              <Text>电话: {item.phone}</Text>
+              <Text>phone: {item.phone}</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -70,24 +61,14 @@ export default function Profile(props) {
             style={Styles.ProfileMessageContainer}
             onPress={() => {
               if (item._id === state.user._id) {
-                Toast.show('错误');
+                Toast.show('error');
                 return;
               }
               props.navigation.navigate('ChatRoom', {guest: item});
             }}>
             <View style={Styles.ProfileMessageWrap}>
               <View style={Styles.ProfileMessageLeft}>
-                <FastImage
-                  source={Images.Message1}
-                  style={Styles.ProfileMessageImg}
-                />
-                <Text>私信</Text>
-              </View>
-              <View>
-                <FastImage
-                  source={Images.RightArrow}
-                  style={Styles.ProfileRightArrow}
-                />
+                <Text>message</Text>
               </View>
             </View>
           </TouchableOpacity>

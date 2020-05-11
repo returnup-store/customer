@@ -48,7 +48,7 @@ const RoomList = props => {
 
       <Header
         back={() => props.navigation.navigate('AppHome')}
-        label={'私信'}
+        label={'Messages'}
       />
 
       <ScrollView style={Styles.GetStuffScreenContainer}>
@@ -56,7 +56,7 @@ const RoomList = props => {
           {state.rooms.length === 0 && (
             <View
               style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
-              <Text>没有讯息</Text>
+              <Text>no message</Text>
             </View>
           )}
           <FlatList
@@ -81,16 +81,12 @@ const RoomList = props => {
                       <View style={{flex: 1, marginRight: 5}}>
                         {item._id && (
                           <FastImage
-                            source={
-                              item._id.photo
-                                ? {
-                                    uri:
-                                      baseUrl +
-                                      'download/photo?path=' +
-                                      item._id.photo,
-                                  }
-                                : Images.maleProfile
-                            }
+                            source={{
+                              uri:
+                                baseUrl +
+                                'download/photo?path=' +
+                                item._id.photo,
+                            }}
                             style={Styles.MessageListAvatar}
                             resizeMode="cover"
                           />
