@@ -24,19 +24,25 @@ import {baseUrl, photoSize} from 'src/config';
 import {RESULTS} from 'react-native-permissions';
 import {checkCamLibPermission} from 'src/Permissions';
 
-const PostScreen = props => {
+const PostWrite = props => {
   const [state, dispatch] = useContext(store);
-  const [tag, setTag] = useState('');
-  const [place, setPlace] = useState('');
-  const [phone, setPhone] = useState('');
+
   const [address, setAddress] = useState('');
-  const [fee, setFee] = useState(0);
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+
+  const [purchase, setPurchase] = useState(0);
+  const [tracking, setTracking] = useState(0);
+  const [merchant, setMerchant] = useState('');
+
+  const [reason, setReason] = useState(-1);
   const [description, setDescription] = useState('');
+
   const [photo, setPhoto] = useState([]);
 
   const handlePhoto = async () => {
-    if (photo.length > 5) {
-      Toast.show('select 6 picutre at max');
+    if (photo.length > 4) {
+      Toast.show(`It's over the limit`);
       return;
     }
 
@@ -46,12 +52,12 @@ const PostScreen = props => {
     }
 
     ImagePicker.showImagePicker(
-      {
-        title: 'select 1 picture',
-        cancelButtonTitle: 'cancel',
-        takePhotoButtonTitle: 'take',
-        chooseFromLibraryButtonTitle: 'take a picture',
-      },
+      // {
+      //   title: 'select 1 picture',
+      //   cancelButtonTitle: 'cancel',
+      //   takePhotoButtonTitle: 'take',
+      //   chooseFromLibraryButtonTitle: 'take a picture',
+      // },
       response => {
         if (response.didCancel) {
           console.log('User cancelled image picker');
@@ -71,7 +77,7 @@ const PostScreen = props => {
             .then(({uri, path, name, size}) => {
               console.log('uri', uri, 'path', path, 'name', name, 'size', size);
               setPhoto([...photo, {uri, name, type: 'image/jpeg'}]);
-              if (photo.length > 4) Toast.show('select 6 images at max');
+              if (photo.length > 4) Toast.show(`It's over the limit`);
             })
             .catch(err => {
               console.log('resize error... ... ...', err);
@@ -82,8 +88,16 @@ const PostScreen = props => {
   };
 
   async function handleSubmit() {
-    if (tag === '' || place === '' || address === '' || description === '') {
-      Toast.show('input error!');
+    if (
+      reason === -1 ||
+      email === '' ||
+      address === '' ||
+      description === '' ||
+      purchase === 0 ||
+      tracking === 0 ||
+      merchant === ''
+    ) {
+      Toast.show('Input error!');
       return;
     }
 
@@ -93,20 +107,19 @@ const PostScreen = props => {
         formData.append('photo', ph);
       });
 
-      console.log('name or phone ???', state.user.name || state.user.phone);
-
       await axios
         .post(baseUrl + 'upload/photo', formData)
         .then(response => {
           const photos = response.data.photo;
           axios
             .post(baseUrl + 'api/stuffpost', {
-              kind: 'lost',
-              tag,
-              place,
               address,
-              fee,
               phone,
+              email,
+              purchase,
+              tracking,
+              merchant,
+              reason,
               description,
               photos,
               user: state.user._id,
@@ -120,34 +133,15 @@ const PostScreen = props => {
             })
             .catch(function(error) {
               Toast.show('error');
+              console.log(JSON.stringify(error));
             });
         })
         .catch(error => {
           console.log(JSON.stringify(error));
         });
     } else {
-      axios
-        .post(baseUrl + 'api/stuffpost', {
-          kind: 'lost',
-          tag,
-          place,
-          address,
-          fee,
-          phone,
-          description,
-          photos: [],
-          user: state.user._id,
-          title: state.user.name || state.user.phone,
-        })
-        .then(function(response2) {
-          Toast.show(response2.data.msg);
-          if (response2.data.success) {
-            props.navigation.navigate('PostList');
-          }
-        })
-        .catch(function(error) {
-          Toast.show('error');
-        });
+      Toast.show('Select pictures!');
+      return;
     }
   }
 
@@ -172,24 +166,13 @@ const PostScreen = props => {
     <ScrollView style={Styles.FindStuffScreenContainer}>
       <Header
         back={() => props.navigation.navigate('PostList')}
-        label={'details'}
+        label={'Upload product'}
       />
 
       <View style={Styles.StuffInfoContainer}>
-        <CustomFormSelect
-          CustomFormSelectLabel={'category'}
-          CustomFormSelectPlaceholder={'select category'}
-          procFunc={value => setTag(value)}
-        />
-        <View style={Styles.FindStuffAreaContainer}>
-          <View>
-            <Text>address</Text>
-          </View>
-        </View>
-
         <View style={Styles.FindStuffDetailAreaContainer}>
           <View>
-            <Text>address</Text>
+            <Text>Address</Text>
           </View>
           <View style={{flex: 1}}>
             <TextInput
@@ -200,7 +183,7 @@ const PostScreen = props => {
         </View>
         <View style={Styles.FindStuffDetailAreaContainer}>
           <View>
-            <Text>phone</Text>
+            <Text>Phone</Text>
           </View>
           <View style={{flex: 1}}>
             <TextInput
@@ -210,19 +193,52 @@ const PostScreen = props => {
             />
           </View>
         </View>
-      </View>
-      <View style={Styles.FindStuffPriceBtnContainer}>
-        <Text>price</Text>
-        <TextInput
-          style={Styles.FindStuffPriceInput}
-          onChangeText={value => setFee(value)}
-          keyboardType={'numeric'}
-        />
-        <Text>$</Text>
+        <View style={Styles.FindStuffDetailAreaContainer}>
+          <View>
+            <Text>Email</Text>
+          </View>
+          <View style={{flex: 1}}>
+            <TextInput
+              style={Styles.FindStuffDetailAreaInput}
+              onChangeText={value => setEmail(value)}
+            />
+          </View>
+        </View>
+
+        <View style={Styles.FindStuffDetailAreaContainer}>
+          <Text>Purchase</Text>
+          <TextInput
+            style={Styles.FindStuffDetailAreaInput}
+            onChangeText={value => setPurchase(value)}
+            keyboardType={'numeric'}
+          />
+        </View>
+        <View style={Styles.FindStuffDetailAreaContainer}>
+          <Text>Tracking</Text>
+          <TextInput
+            style={Styles.FindStuffDetailAreaInput}
+            onChangeText={value => setTracking(value)}
+            keyboardType={'numeric'}
+          />
+        </View>
+        <View style={Styles.FindStuffDetailAreaContainer}>
+          <Text>Merchant</Text>
+          <TextInput
+            style={Styles.FindStuffDetailAreaInput}
+            onChangeText={value => setMerchant(value)}
+          />
+        </View>
+        <View style={Styles.FindStuffDetailAreaContainer}>
+          <CustomFormSelect
+            CustomFormSelectLabel={'Reason'}
+            CustomFormSelectPlaceholder={'Select return up reason!'}
+            procFunc={value => setReason(value)}
+          />
+        </View>
       </View>
       <View style={Styles.FindStuffFooter}>
         <View>
-          <Text>description</Text>
+          <Text>Description</Text>
           <TextInput
             style={Styles.FindStuffTextArea}
             multiline={true}
@@ -234,7 +250,7 @@ const PostScreen = props => {
           <TouchableOpacity
             style={Styles.FindStuffImgUploadWrap}
             onPress={handlePhoto}>
-            <Text style={{color: Colors.grey}}>take a picture</Text>
+            <Text style={{color: Colors.grey}}>Upload pictures</Text>
           </TouchableOpacity>
         </View>
 
@@ -271,11 +287,11 @@ const PostScreen = props => {
       </View>
       <View style={Styles.FindStuffSubBtnContainer}>
         <TouchableOpacity style={Styles.FindStuffSubBtn} onPress={handleSubmit}>
-          <Text style={Styles.FindStuffSubBtnText}>confirm</Text>
+          <Text style={Styles.FindStuffSubBtnText}>Confirm</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
 
-export default PostScreen;
+export default PostWrite;

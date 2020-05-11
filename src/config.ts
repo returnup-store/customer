@@ -10,8 +10,8 @@ export const tagJson = [
   {Electronics: 'CatKey'},
   {Food: 'CatDigital'},
 ];
-export const tagArr = [
-  {label: 'Cloth', value: 'CatWallet'},
-  {label: 'Electronics', value: 'CatKey'},
-  {label: 'Food', value: 'CatDigital'},
+export const reasonArr = [
+  {label: 'Cloth', value: 0},
+  {label: 'Electronics', value: 1},
+  {label: 'Food', value: 2},
 ];

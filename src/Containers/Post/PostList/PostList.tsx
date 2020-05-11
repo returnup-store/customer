@@ -13,6 +13,8 @@ import {store} from 'src/Store';
 
 import SearchBox from './SearchBox';
 
+import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
+
 const axios = require('axios');
 
 export default function PostList(props) {
@@ -73,7 +75,26 @@ export default function PostList(props) {
       <View style={Styles.CategoryListContainer}>
         <Header back={() => props.navigation.goBack()} label={'Product List'} />
 
-        <SearchBox inputProc={setTmp} handleSearch={handleSearch} />
+        <View
+          style={{
+            paddingLeft: 10,
+            paddingRight: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <View style={{flex: 8}}>
+            <SearchBox inputProc={setTmp} handleSearch={handleSearch} />
+          </View>
+          <View style={{flex: 1}}>
+            <TouchableOpacity
+              onPress={() => {
+                props.navigation.navigate('PostWrite');
+              }}>
+              <EvilIconsIcon name="plus" style={{fontSize: 30}} />
+            </TouchableOpacity>
+          </View>
+        </View>
         {false && (
           <View style={Styles.CategoryListWrap}>
             <FlatList
