@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'FindStuff' do
-  # Pods for FindStuff
+target 'returnup' do
+  # Pods for returnup
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -44,10 +44,10 @@ target 'FindStuff' do
   use_native_modules!
 end
 
-target 'FindStuff-tvOS' do
-  # Pods for FindStuff-tvOS
+target 'returnup-tvOS' do
+  # Pods for returnup-tvOS
 
-  target 'FindStuff-tvOSTests' do
+  target 'returnup-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

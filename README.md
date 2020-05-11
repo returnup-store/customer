@@ -1,10 +1,6 @@
-# find-stuff-app
+# Returnup customer app
 
-# design
-
-https://org.modao.cc/app/cbcc45733afb052cfb083f105bcce28c#screen=s59869B75281555836197914
-
-# build release version guide
+## build release version guide
 
 1. android/app/build.gradle
    1. bundleInRelease: true
@@ -28,7 +24,9 @@ https://org.modao.cc/app/cbcc45733afb052cfb083f105bcce28c#screen=s59869B75281555
       1. this project, i modified BottomNavTab, and didn't test it's behavior, so eventually modified again like the start point.
 7. Happy coding!
 
-# ssl setting guide
+---
+
+## ssl setting guide
 
 1. yarn add react-native-ssl-pinning@latest
 2. openssl s_client -showcerts -connect 106.53.75.202:8000
@@ -37,7 +35,9 @@ https://org.modao.cc/app/cbcc45733afb052cfb083f105bcce28c#screen=s59869B75281555
 5. iOS > drag mycert.cer to Xcode project, mark your target and 'Copy items if needed'
    Android > Place your .cer files under src/main/assets/.
 
-# ios settings
+---
+
+## ios settings
 
 brew install openssl
 
@@ -50,7 +50,7 @@ ln -s ../opt/openssl/include/openssl
 pod deintegrate
 pod install
 
-======================================================================================================================
+---
 
 - periodical background notificatioin
 - continuos connect, disconnect to the server
@@ -61,24 +61,6 @@ pod install
 ---
 
 - get sha1
-  keytool -list -v -keystore .\findstuff.keystore -alias findstuffkey -storepass 123456 -keypass 123456
+  keytool -list -v -keystore .\returnup.keystore -alias findstuffkey -storepass 123456 -keypass 123456
 
--amap setting url
-https://lbs.amap.com/dev/key/app
-
-==========================================================================================================================
-
-amap get geolocation result
-
-- ios: {"accuracy": 65, "altitude": 185, "direction": -1, "errorCode": 0, "latitude": 42.89453993055555, "longitude": 129.4887163628472, "speed": -1, "timestamp": 1583439289955.162}
-- android: {"accuracy": 30, "adCode": "222401", "address": "吉林省延边朝鲜族自治州延吉市白松街 983 号靠近中国邮政储蓄银行(天池路支行)", "altitude": 0, "city": "延边朝鲜族自治州", "cityCode": "1433", "coordinateType": "GCJ02", "country": "中国", "description": "在中国邮政储蓄银行(天池路支行)附近", "district": "延吉市", "errorCode": 0, "errorInfo": "success", "gpsAccuracy": -1, "heading": 0, "latitude": 42.894413, "locationDetail": "#csid:8dfb513c425442d9af4b34f4e4907133", "locationType": 2, "longitude": 129.488622, "poiName": "中国邮政储蓄银行(天池路支行)", "province": "吉林省", "speed": 0, "street": "白松街", "streetNumber": "983 号", "timestamp": 1583439587769, "trustedLevel": 1}
-
-@@@@@Geolocation.watchPosition@@@@
-
-- ios:
-
-{"coords": {"accuracy": 65, "altitude": 185, "altitudeAccuracy": null, "heading": undefined, "latitude": 42.89454535590278, "longitude": 129.4887060546875, "speed": -1}, "location": {"accuracy": 65, "altitude": 185, "direction": -1, "errorCode": 0, "latitude": 42.89454535590278, "longitude": 129.4887060546875, "speed": -1, "timestamp": 1583450616951.642}, "timestamp": 1583450616951.642}
-
-- android:
-
-{"coords": {"accuracy": 30, "altitude": 0, "altitudeAccuracy": null, "heading": 0, "latitude": 42.894421, "longitude": 129.488655, "speed": 0}, "location": {"accuracy": 30, "adCode": "222401", "address": "吉林省延边朝鲜族自治州延吉市白松街 559 号靠近中国邮政储蓄银行(天池路支行)", "altitude": 0, "city": "延边朝鲜族自治州", "cityCode": "1433", "coordinateType": "GCJ02", "country": "中国", "description": "在中国邮政储蓄银行(天池路支行)附近", "district": "延吉市", "errorCode": 0, "errorInfo": "success", "gpsAccuracy": -1, "heading": 0, "latitude": 42.894421, "locationDetail": "#csid:a72997666be54094acb3a9def0d64ba2", "locationType": 2, "longitude": 129.488655, "poiName": "中国邮政储蓄银行(天池路支行)", "province": "吉林省", "speed": 0, "street": "白松街", "streetNumber": "559 号", "timestamp": 1583449755267, "trustedLevel": 1}, "timestamp": 1583449755267}
+---
