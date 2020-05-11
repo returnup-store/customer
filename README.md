@@ -22,7 +22,6 @@
    4. mis setting of bundleInRelease: true, remember, never forgot!
    5. don't modify some app functions, it makes the problem more difficult.
       1. this project, i modified BottomNavTab, and didn't test it's behavior, so eventually modified again like the start point.
-7. Happy coding!
 
 ---
 
@@ -62,5 +61,12 @@ pod install
 
 - get sha1
   keytool -list -v -keystore .\returnup.keystore -alias findstuffkey -storepass 123456 -keypass 123456
+
+- generate debug.keystore
+  keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
+
+- generate app icon sets
+
+  https://easyappicon.com/
 
 ---
