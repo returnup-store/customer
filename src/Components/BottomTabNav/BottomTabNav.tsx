@@ -2,23 +2,21 @@ import React, {ReactElement, useContext} from 'react';
 import {View, Image} from 'react-native';
 import {BottomTabBar, createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
-import AddInfoView from 'src/Containers/AddInfo/AddInfo';
 import ProfileView from 'src/Containers/Profile/Profile';
 import HomeView from 'src/Containers/Home';
 import Style from './BottomTabNavStyle';
 import RoomList from 'src/Containers/Chat/RoomList';
+import PostScreen from 'src/Containers/PostScreen/PostScreen';
 import {Colors, Images} from 'src/Theme';
 
-import StuffPostView from 'src/Containers/Category/CategoryList/StuffPostView';
-import StuffPostDetail from 'src/Containers/Category/CategoryDetail/StuffPostDetail';
+import PostView from 'src/Containers/Category/CategoryList/PostView';
+import PostDetail from 'src/Containers/Category/CategoryDetail/PostDetail';
 
 import NotificationView from 'src/Containers/Notification/NotificationList/NotificationList';
 import NotificationDetail from 'src/Containers/Notification/NotificationDetail/NotificationDetail';
 
 import NewsView from 'src/Containers/Category/CategoryList/NewsView';
 import NewsDetail from 'src/Containers/Category/CategoryDetail/NewsDetail';
-
-import ContactView from 'src/Containers/Category/CategoryList/ContactView';
 
 import {store} from 'src/Store';
 
@@ -40,7 +38,8 @@ const NoteIcon = props => {
             marginLeft: 15,
             marginBottom: -10,
             zIndex: 10,
-          }}></View>
+          }}
+        />
       ) : (
         <></>
       )}
@@ -76,20 +75,17 @@ const HomeStackNavigator = createStackNavigator(
     HomeView: {
       screen: HomeView,
     },
-    StuffPostView: {
-      screen: StuffPostView,
+    PostView: {
+      screen: PostView,
     },
-    StuffPostDetail: {
-      screen: StuffPostDetail,
+    PostDetail: {
+      screen: PostDetail,
     },
     NewsView: {
       screen: NewsView,
     },
     NewsDetail: {
       screen: NewsDetail,
-    },
-    ContactView: {
-      screen: ContactView,
     },
   },
   {
@@ -107,8 +103,8 @@ const BottomTabNavigator = createBottomTabNavigator(
     Chat: {
       screen: RoomList,
     },
-    AddInfo: {
-      screen: AddInfoView,
+    Post: {
+      screen: PostScreen,
     },
     Notification: {
       screen: NotificationStackNavigator,
@@ -128,47 +124,39 @@ const BottomTabNavigator = createBottomTabNavigator(
         const {routeName} = navigation.state;
         if (routeName === 'AppHome') {
           return (
-            <>
-              <Image
-                source={focused ? Images.BottomNavHome2 : Images.BottomNavHome}
-                style={Style.tabBarIcon}
-                resizeMode="contain"
-              />
-            </>
+            <Image
+              source={focused ? Images.BottomNavHome2 : Images.BottomNavHome}
+              style={Style.tabBarIcon}
+              resizeMode="contain"
+            />
           );
         } else if (routeName === 'Chat') {
           return (
-            <>
-              <Image
-                source={focused ? Images.BottomNavChat2 : Images.BottomNavChat}
-                style={Style.tabBarIcon}
-                resizeMode="contain"
-              />
-            </>
+            <Image
+              source={focused ? Images.BottomNavChat2 : Images.BottomNavChat}
+              style={Style.tabBarIcon}
+              resizeMode="contain"
+            />
           );
-        } else if (routeName === 'AddInfo') {
+        } else if (routeName === 'Post') {
           return (
-            <View style={Style.AddInfoContainer}>
-              <Image
-                source={Images.BottomNavAdd}
-                style={Style.tabBarIcon}
-                resizeMode="contain"
-              />
-            </View>
+            <Image
+              source={Images.BottomNavAdd}
+              style={Style.tabBarIcon}
+              resizeMode="contain"
+            />
           );
         } else if (routeName === 'Notification') {
           return <NoteIcon focused={focused} />;
         } else if (routeName === 'Profile') {
           return (
-            <>
-              <Image
-                source={
-                  focused ? Images.BottomNavProfile2 : Images.BottomNavProfile
-                }
-                style={Style.tabBarIcon}
-                resizeMode="contain"
-              />
-            </>
+            <Image
+              source={
+                focused ? Images.BottomNavProfile2 : Images.BottomNavProfile
+              }
+              style={Style.tabBarIcon}
+              resizeMode="contain"
+            />
           );
         }
       },

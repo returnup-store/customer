@@ -18,7 +18,7 @@ const NotificationList = props => {
   const getList = () => {
     axios
       .get(baseUrl + 'api/notification', {
-        params: {region: state.region, user_id: state.user._id},
+        params: {user_id: state.user._id},
       })
       .then(function(response) {
         dispatch({type: 'setNotifications', payload: response.data});
@@ -57,7 +57,8 @@ const NotificationList = props => {
                 {
                   props.navigation.navigate('NotificationDetail', {item});
                 }
-              }}></NotificationCard>
+              }}
+            />
           ))}
         </View>
       </View>

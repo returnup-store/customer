@@ -16,7 +16,7 @@ import SearchBox from './SearchBox';
 
 const axios = require('axios');
 
-export default function CategoryList(props) {
+export default function PostView(props) {
   const [state, dispatch] = useContext(store);
 
   const [list, setList] = useState([]);
@@ -39,7 +39,6 @@ export default function CategoryList(props) {
           kind: props.navigation.getParam('kind'),
           tag,
           key,
-          region: state.region,
         },
       })
       .then(function(response) {
@@ -87,7 +86,8 @@ export default function CategoryList(props) {
                 }}>
                 <CatListBtn
                   title={Object.keys(item)}
-                  imgSource={Object.values(item)}></CatListBtn>
+                  imgSource={Object.values(item)}
+                />
               </TouchableOpacity>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -96,10 +96,7 @@ export default function CategoryList(props) {
       </View>
       <View>
         {list.map((item, i) => (
-          <StuffCard
-            key={i}
-            navigation={props.navigation}
-            item={item}></StuffCard>
+          <StuffCard key={i} navigation={props.navigation} item={item} />
         ))}
       </View>
     </ScrollView>

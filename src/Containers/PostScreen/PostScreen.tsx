@@ -8,12 +8,11 @@ import {
   Platform,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import Styles from './LostStuffScreenStyle';
+import Styles from './PostScreenStyle';
 import Style from 'src/Style';
 import Header from 'src/Components/Header/Header';
 import CustomFormSelect from 'src/Components/CustomForm/CustomFormSelect/CustomFormSelect';
 import {Colors, Images} from 'src/Theme';
-import ChinaRegionWheelPicker from 'src/Lib/rn-wheel-picker-china-region';
 import Toast from 'react-native-simple-toast';
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
@@ -26,7 +25,7 @@ import {baseUrl, photoSize} from 'src/config';
 import {RESULTS} from 'react-native-permissions';
 import {checkCamLibPermission} from 'src/Permissions';
 
-const LostStuffScreen = props => {
+const PostScreen = props => {
   const [state, dispatch] = useContext(store);
   const [tag, setTag] = useState('');
   const [place, setPlace] = useState('');
@@ -294,4 +293,4 @@ const LostStuffScreen = props => {
   );
 };
 
-export default LostStuffScreen;
+export default PostScreen;

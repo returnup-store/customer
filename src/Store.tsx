@@ -12,7 +12,6 @@ import {localNotifTitle} from './Notif';
 const initialState = {
   socket: io(baseUrl, {ransports: ['websocket'], jsonp: false}),
   token: '',
-  region: '天山区',
   user: {},
   news: [],
   last_note: {},
@@ -94,9 +93,6 @@ const StateProvider = ({children}) => {
       }
       case 'setUser': {
         return {...state, user: action.payload};
-      }
-      case 'setRegion': {
-        return {...state, region: action.payload};
       }
       case 'setToken': {
         return {...state, auth_token: action.payload};
@@ -202,14 +198,14 @@ const StateProvider = ({children}) => {
     state.socket.on('data_news', value => {
       console.log('data_news... ... ...', value);
       dispatch({type: 'addNews', payload: value});
-      localNotifTitle('新闻息到了！', value.content);
+      localNotifTitle('News！', value.content);
     });
 
     if (state.user.location && state.user.location.city) {
       state.socket.on(state.user.location.city, value => {
         console.log('data_note... ... ...', value);
         dispatch({type: 'addNews', payload: value});
-        localNotifTitle('通知息到了！', value.content);
+        localNotifTitle('Local news!', value.content);
       });
     }
 
@@ -225,7 +221,7 @@ const StateProvider = ({children}) => {
           payload: {user: {}, token: '', socket: null},
         });
         AsyncStorage.clear();
-        Toast.show('您的帐户被禁止。');
+        Toast.show('Your account blocked!');
       });
 
       state.socket.on(state.user._id, value => {
@@ -247,7 +243,7 @@ const StateProvider = ({children}) => {
           //   });
         } else {
           dispatch({type: 'updateRoom', payload: value});
-          localNotifTitle('新消息到了！', value.content);
+          localNotifTitle('New message！', value.content);
         }
       });
     }

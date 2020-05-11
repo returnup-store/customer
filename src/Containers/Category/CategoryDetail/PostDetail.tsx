@@ -14,7 +14,7 @@ import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import DialogInput from 'react-native-dialog-input';
 
-export default function StuffPostDetail({navigation}) {
+export default function PostDetail({navigation}) {
   const [state, dispatch] = useContext(store);
   const [item, setItem] = useState(navigation.getParam('item'));
   const [dlgVisible, setDlgVisible] = useState(false);
@@ -162,7 +162,7 @@ export default function StuffPostDetail({navigation}) {
                   }
                   resizeMode="cover"
                 />
-                <View style={{flex: 3}}></View>
+                <View style={{flex: 3}} />
               </View>
               <View style={Styles.UserNameContainer}>
                 <View style={Styles.UserNameWrap}>
@@ -239,7 +239,7 @@ export default function StuffPostDetail({navigation}) {
                     />
                   )}
                 </View>
-                <View style={{flex: 1}}></View>
+                <View style={{flex: 1}} />
               </View>
             </View>
           </View>
@@ -293,9 +293,10 @@ export default function StuffPostDetail({navigation}) {
           setDlgVisible(false);
         }}
         cancelText={'取消'}
-        submitText={'确认'}></DialogInput>
+        submitText={'确认'}
+      />
       <View style={Styles.CommentInputContainer}>
-        <View style={Styles.CommentInputWrap}></View>
+        <View style={Styles.CommentInputWrap} />
         <TouchableOpacity
           style={Styles.LikeCommentContainer}
           onPress={increaseLikesCnt}>
