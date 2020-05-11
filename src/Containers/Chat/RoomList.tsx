@@ -55,7 +55,7 @@ const RoomList = props => {
   return (
     <>
       <Header
-        back={() => props.navigation.navigate('AppHome')}
+        back={() => props.navigation.navigate('PostList')}
         label={'Messages'}
       />
 

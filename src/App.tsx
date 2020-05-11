@@ -8,9 +8,9 @@ import SignInScreen from 'src/Containers/Authentication/SignInScreen/SignInScree
 import SignUpScreen from 'src/Containers/Authentication/SignUpScreen/SignUpScreen';
 import ForgotPwdScreen from 'src/Containers/Authentication/ForgotPwdScreen/ForgotPwdScreen';
 
-import PostScreen from 'src/Containers/PostScreen/PostScreen';
-import ChatRoom from 'src/Containers/Chat/Chat/ChatRoom';
-import UserInfo from 'src/Containers/Category/UserInfo/UserInfo';
+import PostList from 'src/Containers/Post/PostList/PostList';
+import PostDetails from 'src/Containers/Post/PostDetails/PostDetails';
+import PostWrite from 'src/Containers/Post/PostWrite/PostWrite';
 
 import {StateProvider} from 'src/Store';
 
@@ -21,12 +21,36 @@ export default function App() {
     <StateProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="SignIn" component={SignInScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="ForgotPwd" component={ForgotPwdScreen} />
-          <Stack.Screen name="Post" component={PostScreen} />
-          <Stack.Screen name="Chat" component={ChatRoom} />
-          <Stack.Screen name="Info" component={UserInfo} />
+          <Stack.Screen
+            name="SignIn"
+            component={SignInScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ForgotPwd"
+            component={ForgotPwdScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PostList"
+            component={PostList}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PostDetails"
+            component={PostDetails}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PostWrite"
+            component={PostWrite}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </StateProvider>

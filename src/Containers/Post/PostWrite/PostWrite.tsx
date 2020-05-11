@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import Styles from './PostScreenStyle';
+import Styles from './PostWriteStyle';
 import Style from 'src/Style';
 import Header from 'src/Components/Header/Header';
 import CustomFormSelect from 'src/Components/CustomForm/CustomFormSelect/CustomFormSelect';
@@ -115,7 +115,7 @@ const PostScreen = props => {
             .then(function(response2) {
               Toast.show(response2.data.msg);
               if (response2.data.success) {
-                props.navigation.navigate('AppHome');
+                props.navigation.navigate('PostList');
               }
             })
             .catch(function(error) {
@@ -142,7 +142,7 @@ const PostScreen = props => {
         .then(function(response2) {
           Toast.show(response2.data.msg);
           if (response2.data.success) {
-            props.navigation.navigate('AppHome');
+            props.navigation.navigate('PostList');
           }
         })
         .catch(function(error) {
@@ -171,7 +171,7 @@ const PostScreen = props => {
   return (
     <ScrollView style={Styles.FindStuffScreenContainer}>
       <Header
-        back={() => props.navigation.navigate('AppHome')}
+        back={() => props.navigation.navigate('PostList')}
         label={'details'}
       />
 

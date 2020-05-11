@@ -90,7 +90,7 @@ export default function SignInScreen(props) {
           await saveToken('signInfo', JSON.stringify(signInfo));
 
           Toast.show('success!');
-          props.navigation.navigate('AppHome');
+          props.navigation.navigate('PostList');
         } else {
           Toast.show(response.data.msg);
         }
@@ -105,7 +105,7 @@ export default function SignInScreen(props) {
 
     BackHandler.addEventListener('hardwareBackPress', () => {
       console.log('you clicked back button. go to the app home.');
-      props.navigation.navigate('AppHome');
+      props.navigation.navigate('PostList');
       return true;
     });
   }, []);

@@ -53,7 +53,7 @@ const NotificationList = props => {
     <ScrollView style={{backgroundColor: '#f4f6f8'}}>
       <View style={Styles.CategoryListContainer}>
         <Header
-          back={() => props.navigation.navigate('AppHome')}
+          back={() => props.navigation.navigate('PostList')}
           label={'通知'}
         />
 

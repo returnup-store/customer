@@ -70,7 +70,7 @@ const Profile = props => {
   const handleSignout = async () => {
     // state.socket.disconnect({user_id: state.user._id});
     // state.socket.on('disconnect', reason => {
-    props.navigation.navigate('AppHome');
+    props.navigation.navigate('PostList');
     dispatch({
       type: 'setTokenUser',
       payload: {user: {}, token: '', socket: null},

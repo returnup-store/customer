@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Images} from 'src/Theme';
 import CatListBtn from 'src/Components/Buttons/CatListBtn/CatListBtn';
-import Styles from './CategoryListStyle';
+import Styles from './PostListStyle';
 import Style from 'src/Style';
 import Header from 'src/Components/Header/Header';
 import StuffCard from 'src/Components/Card/StuffCard';
@@ -15,7 +15,7 @@ import SearchBox from './SearchBox';
 
 const axios = require('axios');
 
-export default function PostView(props) {
+export default function PostList(props) {
   const [state, dispatch] = useContext(store);
 
   const [list, setList] = useState([]);
@@ -23,19 +23,15 @@ export default function PostView(props) {
 
   const [tmp, setTmp] = useState('');
   const [key, setKey] = useState('');
-  const [kind, setKind] = useState('');
 
   const handleSearch = () => {
     setKey(tmp);
   };
 
   const getList = () => {
-    setKind(props.route.params.kind);
-
     axios
       .get(baseUrl + 'api/stuffpost', {
         params: {
-          kind: props.route.params.kind,
           tag,
           key,
         },
@@ -53,7 +49,7 @@ export default function PostView(props) {
 
   useEffect(() => {
     getList();
-  }, [tag, key, kind, getList]);
+  }, [tag, key]);
 
   useEffect(
     () =>
@@ -61,7 +57,7 @@ export default function PostView(props) {
         getList();
         dispatch({type: 'setCurrentScreen', payload: 'post-list'});
       }),
-    [dispatch, getList, props.navigation, state.user._id],
+    [],
   );
 
   useEffect(
@@ -75,34 +71,32 @@ export default function PostView(props) {
   return (
     <ScrollView style={{backgroundColor: '#f4f6f8'}}>
       <View style={Styles.CategoryListContainer}>
-        <Header
-          back={() => props.navigation.goBack()}
-          label={kind === 'lost' ? '寻物启事' : '失物招领'}
-        />
+        <Header back={() => props.navigation.goBack()} label={'Product List'} />
 
         <SearchBox inputProc={setTmp} handleSearch={handleSearch} />
-        <View style={Styles.CategoryListWrap}>
-          <FlatList
-            horizontal={false}
-            numColumns={4}
-            style={Styles.CategoryFlatList}
-            data={tagJson}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => {
-                  const currentTag = Object.values(item);
-                  console.log(currentTag[0]);
-                  setTag(currentTag[0]);
-                }}>
-                <CatListBtn
-                  title={Object.keys(item)}
-                  imgSource={Object.values(item)}
-                />
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
+        {false && (
+          <View style={Styles.CategoryListWrap}>
+            <FlatList
+              horizontal={false}
+              numColumns={4}
+              style={Styles.CategoryFlatList}
+              data={tagJson}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    const currentTag = Object.values(item);
+                    setTag(currentTag[0]);
+                  }}>
+                  <CatListBtn
+                    title={Object.keys(item)}
+                    imgSource={Object.values(item)}
+                  />
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+        )}
       </View>
       <View>
         {list.map((item, i) => (

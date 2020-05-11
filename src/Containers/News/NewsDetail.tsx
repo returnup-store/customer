@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Images, Colors} from 'src/Theme';
-import Styles from './CategoryDetailStyle';
+import Styles from './NewsDetailStyle';
 import Style from 'src/Style';
 import Header from 'src/Components/Header/Header';
 

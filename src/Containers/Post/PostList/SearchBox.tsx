@@ -1,15 +1,15 @@
 import React from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import Styles from './CategoryListStyle';
-import FastImage from 'react-native-fast-image';
-import {Images} from 'src/Theme';
+import Styles from './PostListStyle';
+
+import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 
 const SearchBox = props => {
   return (
     <View style={Styles.HomeSearchArea}>
       <View style={Styles.HomeSearchInputContainer}>
         <TextInput
-          placeholder={'keyword'}
+          placeholder={'Keyword'}
           style={Styles.HomeSearchInput}
           onChangeText={props.inputProc}
         />
@@ -17,7 +17,7 @@ const SearchBox = props => {
       <TouchableOpacity
         onPress={props.handleSearch}
         style={Styles.HomeSearchBtn}>
-        <Text>search</Text>
+        <EvilIconsIcon name="search" style={{fontSize: 30}} />
       </TouchableOpacity>
     </View>
   );

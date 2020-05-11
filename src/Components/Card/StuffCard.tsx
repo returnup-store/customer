@@ -13,13 +13,15 @@ import {store} from 'src/Store';
 
 import {dotedTitle} from 'src/utils';
 
+import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
+
 export default function StuffCard({item, navigation}) {
   const [state, dispatch] = useContext(store);
 
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('StuffPostDetail', {item});
+        navigation.navigate('PostDetails', {item});
       }}
       style={Style.CardWrap}>
       <Card style={{padding: 12, flexDirection: 'column'}}>
@@ -31,83 +33,23 @@ export default function StuffCard({item, navigation}) {
               }}
             />
           </View>
-          <View style={{flex: 5}}>
-            <View style={{flexDirection: 'column'}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    flex: 1,
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                  }}>
-                  <View>
-                    <Text>{dotedTitle(item.title)}</Text>
-                  </View>
-                  <View>
-                    {item.kind === 'lost' && (
-                      <RectBtn
-                        RectBtnTitle={'寻物启事'}
-                        RectBtnColor={'blueTransparent90'}
-                      />
-                    )}
-                    {item.kind === 'found' && (
-                      <RectBtn
-                        RectBtnTitle={'失物招领'}
-                        RectBtnColor={'MainYellow'}
-                      />
-                    )}
-                  </View>
-                </View>
-                <View style={{flexDirection: 'row', flex: 1}}>
-                  {item.user._id === state.user._id && (
-                    <View style={{flex: 11}} />
-                  )}
 
-                  <View style={{flex: 13}}>
-                    {item.fee > 0 && (
-                      <RoundBtn
-                        RoundBtnTitle={'赏 ¥' + item.fee}
-                        RoundBtnColor={'MainRed'}
-                      />
-                    )}
-                  </View>
-
-                  {item.user._id !== state.user._id && (
-                    <View style={{flex: 11}}>
-                      <RoundBtn
-                        RoundBtnTitle={'联系TA'}
-                        RoundBtnColor={'MainYellow'}
-                        proc={() => {
-                          if (!state.user._id) {
-                            Toast.show('请登录！');
-                            return;
-                          }
-                          if (item.user._id === state.user._id) {
-                            Toast.show('这是你的帖子');
-                            return;
-                          }
-                          navigation.navigate('ChatRoom', {
-                            guest: item.user,
-                          });
-                        }}
-                      />
-                    </View>
-                  )}
-                </View>
-              </View>
+          <View
+            style={{
+              flex: 12,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <View style={{flex: 2}}>
+              <EvilIconsIcon name="user" style={{fontSize: 40}} />
             </View>
-            <View>
-              <Text style={Style.Userdate}>{item.phone}</Text>
+            <View style={{flex: 6}}>
+              <Text>{item.title}</Text>
             </View>
-            <View>
+            <View style={{flex: 4}}>
               <Text style={Style.Userdate}>
-                {moment(item.createAt).format('M月D日 hh时mm分')}
+                {moment(item.createAt).format('MM/DD hh:mm')}
               </Text>
             </View>
           </View>
@@ -128,11 +70,6 @@ export default function StuffCard({item, navigation}) {
                   style={Style.CardImage}
                 />
               )}
-            </View>
-          </View>
-          <View style={Style.CardLocation}>
-            <View style={Style.CardLocationGroup}>
-              <Text style={Style.CardLocationText}>{item.place}</Text>
             </View>
           </View>
         </View>

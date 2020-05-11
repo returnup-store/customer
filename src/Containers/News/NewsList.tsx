@@ -2,7 +2,7 @@ import React, {useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Images} from 'src/Theme';
-import Styles from './CategoryListStyle';
+import Styles from './NewsListStyle';
 import Style from 'src/Style';
 import Header from 'src/Components/Header/Header';
 import NewsCard from 'src/Components/Card/NewsCard/NewsCard';
@@ -49,7 +49,8 @@ export default function CategoryList(props) {
                 {
                   props.navigation.navigate('NewsDetail', {item});
                 }
-              }}></NewsCard>
+              }}
+            />
           ))}
       </View>
     </ScrollView>
