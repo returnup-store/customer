@@ -8,15 +8,15 @@ import Header from 'src/Components/Header/Header';
 
 import moment from 'moment';
 
-export default function StuffPostDetail({navigation}) {
-  const [item, setItem] = useState(navigation.getParam('item'));
+export default function StuffPostDetail(props) {
+  const [item, setItem] = useState(props.route.params.item);
 
   console.log('news...................................', item);
 
   return (
     <ScrollView style={{backgroundColor: '#f4f6f8'}}>
       <View>
-        <Header back={() => navigation.goBack()} label={'details'} />
+        <Header back={() => props.navigation.goBack()} label={'details'} />
 
         <View style={Styles.UserInfoContainer}>
           <View style={Styles.AvatarContainer}>

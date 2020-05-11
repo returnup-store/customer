@@ -31,7 +31,7 @@ export default function SignInScreen(props) {
 
   const handleSubmit = async () => {
     if (phone === '' || password === '') {
-      Toast.show('正确输入值！');
+      Toast.show('input error!');
       return;
     }
 
@@ -89,7 +89,7 @@ export default function SignInScreen(props) {
 
           await saveToken('signInfo', JSON.stringify(signInfo));
 
-          Toast.show('成功!');
+          Toast.show('success!');
           props.navigation.navigate('AppHome');
         } else {
           Toast.show(response.data.msg);
@@ -103,11 +103,6 @@ export default function SignInScreen(props) {
   useEffect(() => {
     props.navigation.setParams({from_screen: 'signin'});
 
-    console.log(
-      props.navigation.getParam('from_screen'),
-      'just defined the from _screen params',
-    );
-
     BackHandler.addEventListener('hardwareBackPress', () => {
       console.log('you clicked back button. go to the app home.');
       props.navigation.navigate('AppHome');
@@ -118,34 +113,34 @@ export default function SignInScreen(props) {
   return (
     <View style={{flex: 1}}>
       <View style={Styles.SignInHeader}>
-        <Text style={{fontSize: 20}}>欢迎使用</Text>
+        <Text style={{fontSize: 20}}>Returnup</Text>
       </View>
       <View style={Styles.SignFormContainer}>
         <View style={Styles.SignPhoneInput}>
           <CustomTextInput
-            CustomLabel={'手机'}
-            CustomPlaceholder={'请输入手机号码'}
+            CustomLabel={'Email'}
+            CustomPlaceholder={'Email'}
             proc={value => setPhone(value)}
           />
         </View>
         <View style={Styles.SignPwdInput}>
           <CustomPwdInput
-            CustomPwdLabel={'密码'}
-            CustomPwdPlaceholder={'请输入密码'}
+            CustomPwdLabel={'Password'}
+            CustomPwdPlaceholder={'Password'}
             proc={value => setPassword(value)}
           />
         </View>
         <View style={Styles.SignOtherFunc}>
           <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
-            <Text>新用户注册 &nbsp;</Text>
+            <Text>Sign up &nbsp;</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('ForgotPwdScreen')}>
-            <Text> | &nbsp; 找回密码</Text>
+            onPress={() => props.navigation.navigate('ForgotPwd')}>
+            <Text> | &nbsp; Forgot password?</Text>
           </TouchableOpacity>
         </View>
         <View style={Styles.SignBtn}>
-          <FormCommonBtn CustomBtnTitle={'登录'} proc={handleSubmit} />
+          <FormCommonBtn CustomBtnTitle={'Sign in'} proc={handleSubmit} />
         </View>
       </View>
     </View>

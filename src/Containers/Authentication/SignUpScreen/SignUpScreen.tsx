@@ -70,7 +70,7 @@ export default function SignUpScreen(props) {
       .then(function(response2) {
         if (response2.data.success) {
           Toast.show(response2.data.msg);
-          props.navigation.navigate('Signin');
+          props.navigation.navigate('SignIn');
         } else {
           Toast.show(response2.data.msg);
         }
@@ -91,14 +91,14 @@ export default function SignUpScreen(props) {
             style={{flex: 1}}
             onPress={() => props.navigation.navigate('Signin')}
           />
-          <Text style={{fontSize: 20, color: '#fff'}}>Registration</Text>
+          <Text style={{fontSize: 20, color: '#fff'}}>Sign up</Text>
           <Text style={{flex: 1}} />
         </View>
         <View style={Styles.SignFormContainer}>
           <View style={Styles.FormInput}>
             <CustomPhoneInput
-              CustomLabel={'phone'}
-              CustomPlaceholder={'input phone number'}
+              CustomLabel={'Email'}
+              CustomPlaceholder={'Email'}
               proc={value => setPhone(value)}
               proc2={() => {
                 sendOTP();
@@ -108,8 +108,8 @@ export default function SignUpScreen(props) {
           </View>
           <View style={Styles.FormInput}>
             <CustomPwdInput
-              CustomPwdLabel={'password'}
-              CustomPwdPlaceholder={'input password'}
+              CustomPwdLabel={'Password'}
+              CustomPwdPlaceholder={'Password'}
               proc={value => {
                 setPassword(value);
               }}
@@ -117,8 +117,8 @@ export default function SignUpScreen(props) {
           </View>
           <View style={Styles.FormInput}>
             <CustomPwdInput
-              CustomPwdLabel={'confirm password'}
-              CustomPwdPlaceholder={'input confirm password'}
+              CustomPwdLabel={'Confirm password'}
+              CustomPwdPlaceholder={'Confirm password'}
               proc={value => {
                 setConfirmPassword(value);
               }}
@@ -126,8 +126,8 @@ export default function SignUpScreen(props) {
           </View>
           <View style={Styles.FormInput}>
             <CustomTextInput
-              CustomLabel={'verification code'}
-              CustomPlaceholder={'verification code'}
+              CustomLabel={'Verification code'}
+              CustomPlaceholder={'Verification code'}
               proc={value => {
                 setOtp(value);
               }}
@@ -135,7 +135,7 @@ export default function SignUpScreen(props) {
           </View>
 
           <View style={Styles.SignBtn}>
-            <FormCommonBtn CustomBtnTitle={'submit'} proc={handleSubmit} />
+            <FormCommonBtn CustomBtnTitle={'Sign up'} proc={handleSubmit} />
           </View>
         </View>
       </View>

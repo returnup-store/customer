@@ -61,14 +61,14 @@ export default function CustomPhoneInput(props) {
             style={Styles.touachableButton}
             onPress={() => {
               if (number === '') {
-                Toast.show('正确输入值！');
+                Toast.show('input error！');
                 return;
               }
               setIsSent(true);
               setDuration(duration - 1);
               props.proc2();
             }}>
-            <Text style={{color: '#fff'}}>发送验证码</Text>
+            <Text style={{color: '#fff'}}>Send code</Text>
           </TouchableOpacity>
         )}
       </View>

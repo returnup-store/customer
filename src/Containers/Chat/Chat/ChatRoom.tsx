@@ -24,8 +24,8 @@ import {Colors} from 'src/Theme';
 export default function ChatRoom(props) {
   const [state, dispatch] = useContext(store);
   const [content, setContent] = useState('');
-  const [guest, setGuest] = useState(props.navigation.getParam('guest'));
-  const [room, setRoom] = useState(props.navigation.getParam('room'));
+  const [guest, setGuest] = useState(props.route.params.guest);
+  const [room, setRoom] = useState(props.route.params.room);
 
   const [loading, setLoading] = useState(true);
 
@@ -33,11 +33,7 @@ export default function ChatRoom(props) {
 
   const getRooms = async () => {
     if (room === undefined || room === '') {
-      console.log(
-        state.user._id,
-        guest._id,
-        '========+++++++++++++++=========',
-      );
+      console.log(state.user._id, guest._id);
 
       await axios
         .post(baseUrl + 'api/room', {

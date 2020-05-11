@@ -4,7 +4,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import SigninScreen from 'src/Containers/Authentication/SignInScreen/SignInScreen';
+import SignInScreen from 'src/Containers/Authentication/SignInScreen/SignInScreen';
 import SignUpScreen from 'src/Containers/Authentication/SignUpScreen/SignUpScreen';
 import ForgotPwdScreen from 'src/Containers/Authentication/ForgotPwdScreen/ForgotPwdScreen';
 
@@ -21,7 +21,12 @@ export default function App() {
     <StateProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={PostScreen} />
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="ForgotPwd" component={ForgotPwdScreen} />
+          <Stack.Screen name="Post" component={PostScreen} />
+          <Stack.Screen name="Chat" component={ChatRoom} />
+          <Stack.Screen name="Info" component={UserInfo} />
         </Stack.Navigator>
       </NavigationContainer>
     </StateProvider>

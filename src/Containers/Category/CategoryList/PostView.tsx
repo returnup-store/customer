@@ -30,12 +30,12 @@ export default function PostView(props) {
   };
 
   const getList = () => {
-    setKind(props.navigation.getParam('kind'));
+    setKind(props.route.params.kind);
 
     axios
       .get(baseUrl + 'api/stuffpost', {
         params: {
-          kind: props.navigation.getParam('kind'),
+          kind: props.route.params.kind,
           tag,
           key,
         },

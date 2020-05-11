@@ -8,15 +8,18 @@ import Header from 'src/Components/Header/Header';
 
 import moment from 'moment';
 
-export default function PostDetail({navigation}) {
-  const [item, setItem] = useState(navigation.getParam('item'));
+export default function PostDetail(props) {
+  const [item, setItem] = useState(props.route.params.item);
   useEffect(() => {}, []);
 
   return (
     <>
       <ScrollView style={{backgroundColor: '#f4f6f8'}}>
         <View>
-          <Header back={() => navigation.goBack()} label={'Post Details'} />
+          <Header
+            back={() => props.navigation.goBack()}
+            label={'Post Details'}
+          />
 
           <View style={Styles.UserInfoContainer}>
             <View style={Styles.AvatarContainer}>

@@ -17,7 +17,7 @@ import {store} from 'src/Store';
 
 export default function Profile(props) {
   const [state, dispatch] = useContext(store);
-  const [item, setItem] = useState(props.navigation.getParam('item'));
+  const [item, setItem] = useState(props.route.params.item);
   return (
     <ScrollView style={Styles.ProfileContainer}>
       <ImageBackground

@@ -15,7 +15,7 @@ import DialogInput from 'react-native-dialog-input';
 
 export default function PostDetail(props) {
   const [state, dispatch] = useContext(store);
-  const [item, setItem] = useState(props.navigation.getParam('item'));
+  const [item, setItem] = useState(props.route.params.item);
   const [dlgVisible, setDlgVisible] = useState(false);
 
   const sendMsg = item => {
