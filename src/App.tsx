@@ -21,7 +21,7 @@ export default function App() {
     <StateProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={SigninScreen} />
+          <Stack.Screen name="Home" component={PostScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </StateProvider>

@@ -20,7 +20,6 @@ import {Images} from 'src/Theme';
 import axios from 'axios';
 import {baseUrl} from 'src/config';
 
-import {NavigationEvents} from 'react-navigation';
 import Modal from 'react-native-modal';
 import Accordion from 'react-native-collapsible-accordion';
 import {store} from 'src/Store';
@@ -80,25 +79,6 @@ function HomeView(props) {
       .finally(function() {});
   };
 
-  const updateLocation = location => {
-    if (!state.user._id || !location) return;
-
-    console.log('will update my locatoin as ', location);
-
-    axios
-      .post(baseUrl + 'api2/user/location', {
-        user_id: state.user._id,
-        location,
-      })
-      .then(function(response) {
-        console.log(response.data, 'setLocation result...');
-      })
-      .catch(function(error) {
-        console.log(error, 'setLocation error...');
-      })
-      .finally(function() {});
-  };
-
   useEffect(() => {}, [list]);
 
   const getsignInfo = async () => {
@@ -139,16 +119,27 @@ function HomeView(props) {
     </ScrollView>
   );
 
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        getLastNote();
+        getList();
+        dispatch({type: 'setCurrentScreen', payload: 'home'});
+      }),
+    [dispatch, getLastNote, getList, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Home Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
+
   return (
     <>
       <ScrollView style={{flex: 1}}>
-        <NavigationEvents
-          onDidFocus={() => {
-            getLastNote();
-            getList();
-            dispatch({type: 'setCurrentScreen', payload: 'home'});
-          }}
-        />
         <View style={styles.homeScrollView}>
           <View
             style={{

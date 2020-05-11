@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity, ScrollView, Image} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Images, Colors} from 'src/Theme';
@@ -9,26 +9,25 @@ import {store} from 'src/Store';
 import moment from 'moment';
 import {baseUrl} from 'src/config';
 import RoundBtn from 'src/Components/Buttons/RoundBtn/RoundBtn';
-import {NavigationEvents} from 'react-navigation';
 import axios from 'axios';
 import Toast from 'react-native-simple-toast';
 import DialogInput from 'react-native-dialog-input';
 
-export default function PostDetail({navigation}) {
+export default function PostDetail(props) {
   const [state, dispatch] = useContext(store);
-  const [item, setItem] = useState(navigation.getParam('item'));
+  const [item, setItem] = useState(props.navigation.getParam('item'));
   const [dlgVisible, setDlgVisible] = useState(false);
 
   const sendMsg = item => {
     if (!state.user._id) {
-      Toast.show('请登录！');
+      Toast.show('signin！');
       return;
     }
     if (item.user._id === state.user._id) {
-      Toast.show('这是你的帖子');
+      Toast.show('cant send to you');
       return;
     }
-    navigation.navigate('ChatRoom', {guest: item.user});
+    props.navigation.navigate('ChatRoom', {guest: item.user});
   };
 
   const increaseBrowseCnt = () => {
@@ -49,12 +48,12 @@ export default function PostDetail({navigation}) {
 
   const increaseLikesCnt = () => {
     if (state.user._id === undefined) {
-      navigation.navigate('Signin');
+      props.navigation.navigate('Signin');
       return;
     }
 
     if (item.user._id === state.user._id) {
-      Toast.show('错误');
+      Toast.show('error');
       return;
     }
 
@@ -78,7 +77,7 @@ export default function PostDetail({navigation}) {
 
   const canReport = () => {
     if (state.user._id === undefined) {
-      navigation.navigate('Signin');
+      props.navigation.navigate('Signin');
       return false;
     }
     if (!item.user || item.user._id === state.user._id) {
@@ -94,7 +93,7 @@ export default function PostDetail({navigation}) {
       }
     });
 
-    if (!ret) Toast.show('您已经举报了。');
+    if (!ret) Toast.show('already...');
     return ret;
   };
 
@@ -105,7 +104,7 @@ export default function PostDetail({navigation}) {
 
   const reportPost = report => {
     if (state.user._id === undefined) {
-      navigation.navigate('Signin');
+      props.navigation.navigate('Signin');
       return;
     }
 
@@ -119,29 +118,39 @@ export default function PostDetail({navigation}) {
         if (response.data.item) {
           setItem(response.data.item);
         }
-        Toast.show('成功');
+        Toast.show('success');
       })
       .catch(function(error) {
         console.log(error, 'fromthe report fasdf');
-        console.log(error);
-        Toast.show('错误');
+        Toast.show('error');
       })
       .finally(function() {
         // always executed
       });
   };
 
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        increaseBrowseCnt();
+        dispatch({type: 'setCurrentScreen', payload: 'post-detail'});
+      }),
+    [dispatch, increaseBrowseCnt, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Home Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
+
   return (
     <>
-      <NavigationEvents
-        onDidFocus={() => {
-          increaseBrowseCnt();
-          dispatch({type: 'setCurrentScreen', payload: 'post-detail'});
-        }}
-      />
       <ScrollView style={{backgroundColor: '#f4f6f8'}}>
         <View>
-          <Header back={() => navigation.goBack()} label={'详情'} />
+          <Header back={() => props.navigation.goBack()} label={'details'} />
 
           <View style={Styles.UserInfoContainer}>
             <View style={Styles.AvatarContainer}>

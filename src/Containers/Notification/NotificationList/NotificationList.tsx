@@ -10,8 +10,6 @@ import {store} from 'src/Store';
 import {baseUrl} from 'src/config';
 import axios from 'axios';
 
-import {NavigationEvents} from 'react-navigation';
-
 const NotificationList = props => {
   const [state, dispatch] = useContext(store);
 
@@ -31,17 +29,28 @@ const NotificationList = props => {
       });
   };
 
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        if (!state.user._id) props.navigation.navigate('Signin');
+        else {
+          dispatch({type: 'setCurrentScreen', payload: 'note-list'});
+          getList();
+        }
+      }),
+    [dispatch, getList, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Note Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
+
   return (
     <ScrollView style={{backgroundColor: '#f4f6f8'}}>
-      <NavigationEvents
-        onDidFocus={() => {
-          if (!state.user._id) props.navigation.navigate('Signin');
-          else {
-            dispatch({type: 'setCurrentScreen', payload: 'note-list'});
-            getList();
-          }
-        }}
-      />
       <View style={Styles.CategoryListContainer}>
         <Header
           back={() => props.navigation.navigate('AppHome')}

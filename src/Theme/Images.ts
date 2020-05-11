@@ -3,5 +3,5 @@
  */
 
 export default {
-  Slide1: require('src/Images/HomeCarousel/laptop.jpg'),
+  Slide1: require('src/Images/laptop.jpg'),
 };

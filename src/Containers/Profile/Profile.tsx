@@ -21,7 +21,6 @@ import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import QRCode from 'react-native-qrcode-svg';
 import axios from 'axios';
-import {NavigationEvents} from 'react-navigation';
 import Modal from 'react-native-modal';
 import {baseUrl, appVersion, avatarSize} from 'src/config';
 import {RESULTS} from 'react-native-permissions';
@@ -176,17 +175,18 @@ const Profile = props => {
       .then(function(response) {
         if (response.data.success) {
           dispatch({type: 'setUser', payload: response.data.user});
-          Toast.show('成功!');
+          Toast.show('success!');
           setIsEdit(false);
         } else {
-          Toast.show('失败了!');
+          Toast.show('error!');
         }
       })
       .catch(function(error) {
         console.log('eeeeeerrrrrrrrr', error);
-        // Toast.show('错误');
+        // Toast.show('error');
       });
   }
+
   useEffect(() => {
     (async () => {
       await axios
@@ -205,20 +205,32 @@ const Profile = props => {
 
       console.log('refreshing...........................');
     })();
-  }, []);
+  }, [dispatch]);
+
   useEffect(() => {
     console.log('refreshing...');
     updateProfile(current);
-  }, [photo, state.profile]);
+  }, [current, photo, state.profile, updateProfile]);
+
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        if (!state.user._id) props.navigation.navigate('Signin');
+        else dispatch({type: 'setCurrentScreen', payload: 'profile'});
+      }),
+    [dispatch, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Profile Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
+
   return (
     <ScrollView style={Style.ProfileContainer}>
-      <NavigationEvents
-        onDidFocus={() => {
-          console.log('profile user,,,,', state.user);
-          if (!state.user._id) props.navigation.navigate('Signin');
-          else dispatch({type: 'setCurrentScreen', payload: 'profile'});
-        }}
-      />
       <ImageBackground
         source={Images.Slide1}
         style={Style.ProfileHeaderContainer}>

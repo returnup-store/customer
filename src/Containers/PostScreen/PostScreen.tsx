@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   ScrollView,
   View,
@@ -19,7 +19,6 @@ import ImageResizer from 'react-native-image-resizer';
 
 import {store} from 'src/Store';
 import axios from 'axios';
-import {NavigationEvents} from 'react-navigation';
 import {baseUrl, photoSize} from 'src/config';
 
 import {RESULTS} from 'react-native-permissions';
@@ -36,8 +35,6 @@ const PostScreen = props => {
   const [photo, setPhoto] = useState([]);
 
   const handlePhoto = async () => {
-    console.log(photo.length, '***********************');
-
     if (photo.length > 5) {
       Toast.show('select 6 picutre at max');
       return;
@@ -154,15 +151,25 @@ const PostScreen = props => {
     }
   }
 
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        if (!state.user._id) props.navigation.navigate('Signin');
+        dispatch({type: 'setCurrentScreen', payload: 'lost-screen'});
+      }),
+    [dispatch, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Post Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
+
   return (
     <ScrollView style={Styles.FindStuffScreenContainer}>
-      <NavigationEvents
-        onDidFocus={() => {
-          if (!state.user._id) props.navigation.navigate('Signin');
-          dispatch({type: 'setCurrentScreen', payload: 'lost-screen'});
-        }}
-      />
-
       <Header
         back={() => props.navigation.navigate('AppHome')}
         label={'details'}
@@ -211,7 +218,7 @@ const PostScreen = props => {
           onChangeText={value => setFee(value)}
           keyboardType={'numeric'}
         />
-        <Text>元</Text>
+        <Text>$</Text>
       </View>
       <View style={Styles.FindStuffFooter}>
         <View>
@@ -264,7 +271,7 @@ const PostScreen = props => {
       </View>
       <View style={Styles.FindStuffSubBtnContainer}>
         <TouchableOpacity style={Styles.FindStuffSubBtn} onPress={handleSubmit}>
-          <Text style={Styles.FindStuffSubBtnText}>确认发布</Text>
+          <Text style={Styles.FindStuffSubBtnText}>confirm</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

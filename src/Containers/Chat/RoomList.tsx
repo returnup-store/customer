@@ -10,8 +10,6 @@ import {baseUrl} from 'src/config';
 import moment from 'moment';
 import axios from 'axios';
 
-import {NavigationEvents} from 'react-navigation';
-
 const RoomList = props => {
   const [state, dispatch] = useContext(store);
 
@@ -34,18 +32,28 @@ const RoomList = props => {
       });
   };
 
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        if (!state.user._id) props.navigation.navigate('Signin');
+        else {
+          getList();
+          dispatch({type: 'setCurrentScreen', payload: 'room-list'});
+        }
+      }),
+    [dispatch, getList, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Room Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
+
   return (
     <>
-      <NavigationEvents
-        onDidFocus={() => {
-          if (!state.user._id) props.navigation.navigate('Signin');
-          else {
-            getList();
-            dispatch({type: 'setCurrentScreen', payload: 'room-list'});
-          }
-        }}
-      />
-
       <Header
         back={() => props.navigation.navigate('AppHome')}
         label={'Messages'}

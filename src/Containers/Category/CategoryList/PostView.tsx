@@ -8,7 +8,6 @@ import Style from 'src/Style';
 import Header from 'src/Components/Header/Header';
 import StuffCard from 'src/Components/Card/StuffCard';
 import {tagJson} from 'src/config';
-import {NavigationEvents} from 'react-navigation';
 import {baseUrl} from 'src/config';
 import {store} from 'src/Store';
 
@@ -54,16 +53,27 @@ export default function PostView(props) {
 
   useEffect(() => {
     getList();
-  }, [tag, key, kind]);
+  }, [tag, key, kind, getList]);
+
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        getList();
+        dispatch({type: 'setCurrentScreen', payload: 'post-list'});
+      }),
+    [dispatch, getList, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Home Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
 
   return (
     <ScrollView style={{backgroundColor: '#f4f6f8'}}>
-      <NavigationEvents
-        onDidFocus={() => {
-          getList();
-          dispatch({type: 'setCurrentScreen', payload: 'post-list'});
-        }}
-      />
       <View style={Styles.CategoryListContainer}>
         <Header
           back={() => props.navigation.goBack()}

@@ -17,7 +17,6 @@ import {store} from 'src/Store';
 import Toast from 'react-native-simple-toast';
 import {baseUrl} from 'src/config';
 
-import {NavigationEvents} from 'react-navigation';
 import axios from 'axios';
 
 import {Colors} from 'src/Theme';
@@ -148,14 +147,24 @@ export default function ChatRoom(props) {
     updateCheckedState();
   }, [state.messages]);
 
+  useEffect(
+    () =>
+      props.navigation.addListener('focus', () => {
+        if (!state.user._id) props.navigation.navigate('Signin');
+      }),
+    [dispatch, props.navigation, state.user._id],
+  );
+
+  useEffect(
+    () =>
+      props.navigation.addListener('blur', () =>
+        console.log('Home Screen was unfocused'),
+      ),
+    [props.navigation],
+  );
+
   return (
     <>
-      <NavigationEvents
-        onDidFocus={() => {
-          if (!state.user._id) props.navigation.navigate('Signin');
-        }}
-      />
-
       <Header
         back={() => props.navigation.goBack()}
         label={guest.name ? guest.name : ''}
