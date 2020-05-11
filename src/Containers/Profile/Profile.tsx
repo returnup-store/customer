@@ -350,7 +350,7 @@ const Profile = props => {
                 source={Images.ProfileContactus}
                 style={Style.ProfileContactImg}
               />
-              <Text>关于寻N</Text>
+              <Text>About us</Text>
             </View>
             <View>
               <FastImage
@@ -437,7 +437,7 @@ const Profile = props => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <View style={{flex: 1}}></View>
+            <View style={{flex: 1}} />
             <View style={{width: '50%'}}>
               <Button
                 title="关闭"
@@ -446,7 +446,7 @@ const Profile = props => {
                 }}
               />
             </View>
-            <View style={{flex: 1}}></View>
+            <View style={{flex: 1}} />
           </View>
         </View>
       </Modal>

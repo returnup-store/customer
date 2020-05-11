@@ -79,7 +79,7 @@ const pushInit = () => {
 
 Pushy.setNotificationListener(async data => {
   console.log('Received notification: ' + JSON.stringify(data));
-  let notificationTitle = '寻N';
+  let notificationTitle = 'Returnup';
   Pushy.notify(notificationTitle, data.content, data);
 });
 */
