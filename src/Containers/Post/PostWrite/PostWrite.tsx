@@ -206,27 +206,39 @@ const PostWrite = props => {
         </View>
 
         <View style={Styles.FindStuffDetailAreaContainer}>
-          <Text>Purchase</Text>
-          <TextInput
-            style={Styles.FindStuffDetailAreaInput}
-            onChangeText={value => setPurchase(value)}
-            keyboardType={'numeric'}
-          />
+          <View>
+            <Text>Purchase</Text>
+          </View>
+          <View style={{flex: 1}}>
+            <TextInput
+              style={Styles.FindStuffDetailAreaInput}
+              onChangeText={value => setPurchase(parseInt(value))}
+              keyboardType={'numeric'}
+            />
+          </View>
         </View>
         <View style={Styles.FindStuffDetailAreaContainer}>
-          <Text>Tracking</Text>
-          <TextInput
-            style={Styles.FindStuffDetailAreaInput}
-            onChangeText={value => setTracking(value)}
-            keyboardType={'numeric'}
-          />
+          <View>
+            <Text>Tracking</Text>
+          </View>
+          <View style={{flex: 1}}>
+            <TextInput
+              style={Styles.FindStuffDetailAreaInput}
+              onChangeText={value => setTracking(parseInt(value))}
+              keyboardType={'numeric'}
+            />
+          </View>
         </View>
         <View style={Styles.FindStuffDetailAreaContainer}>
-          <Text>Merchant</Text>
-          <TextInput
-            style={Styles.FindStuffDetailAreaInput}
-            onChangeText={value => setMerchant(value)}
-          />
+          <View>
+            <Text>Merchant</Text>
+          </View>
+          <View style={{flex: 1}}>
+            <TextInput
+              style={Styles.FindStuffDetailAreaInput}
+              onChangeText={value => setMerchant(value)}
+            />
+          </View>
         </View>
         <View style={Styles.FindStuffDetailAreaContainer}>
           <CustomFormSelect
