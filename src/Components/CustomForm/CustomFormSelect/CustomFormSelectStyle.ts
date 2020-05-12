@@ -10,10 +10,10 @@ export default StyleSheet.create({
     borderBottomColor: Colors.grey,
     alignItems: 'center',
     justifyContent: 'space-between',
-    height:50
+    height: 50,
   },
   CustomFormSelectTextContainer: {},
   CustomFormSelectPickerContainer: {
-    width: '80%',
+    width: '70%',
   },
 });

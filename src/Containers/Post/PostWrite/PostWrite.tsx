@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useReducer} from 'react';
 import {
   ScrollView,
   View,
@@ -24,19 +24,27 @@ import {baseUrl, photoSize} from 'src/config';
 import {RESULTS} from 'react-native-permissions';
 import {checkCamLibPermission} from 'src/Permissions';
 
+import {reasonArr, catArr} from 'src/config';
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
+
 const PostWrite = props => {
   const [state, dispatch] = useContext(store);
 
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const [reason, setReason] = useState(0);
+  const [category, setCategory] = useState(0);
 
-  const [purchase, setPurchase] = useState(0);
-  const [tracking, setTracking] = useState(0);
-  const [merchant, setMerchant] = useState('');
-
-  const [reason, setReason] = useState(-1);
-  const [description, setDescription] = useState('');
+  const [userInput, setUserInput] = useReducer(
+    (state, newState) => ({...state, ...newState}),
+    {
+      address: '',
+      phone: '',
+      email: '',
+      purchase: '',
+      tracking: '',
+      merchant: '',
+      description: '',
+    },
+  );
 
   const [photo, setPhoto] = useState([]);
 
@@ -89,13 +97,14 @@ const PostWrite = props => {
 
   async function handleSubmit() {
     if (
-      reason === -1 ||
-      email === '' ||
-      address === '' ||
-      description === '' ||
-      purchase === 0 ||
-      tracking === 0 ||
-      merchant === ''
+      reason === 0 ||
+      category === 0 ||
+      userInput.email === '' ||
+      userInput.address === '' ||
+      userInput.description === '' ||
+      userInput.purchase === '' ||
+      userInput.tracking === '' ||
+      userInput.merchant === ''
     ) {
       Toast.show('Input error!');
       return;
@@ -113,14 +122,15 @@ const PostWrite = props => {
           const photos = response.data.photo;
           axios
             .post(baseUrl + 'api/stuffpost', {
-              address,
-              phone,
-              email,
-              purchase,
-              tracking,
-              merchant,
+              address: userInput.address,
+              phone: userInput.phone,
+              email: userInput.email,
+              purchase: userInput.purchase,
+              tracking: userInput.tracking,
+              merchant: userInput.merchant,
+              category,
               reason,
-              description,
+              description: userInput.description,
               photos,
               user: state.user._id,
               title: state.user.name,
@@ -166,7 +176,7 @@ const PostWrite = props => {
     <ScrollView style={Styles.FindStuffScreenContainer}>
       <Header
         back={() => props.navigation.navigate('PostList')}
-        label={'Upload product'}
+        label={'Upload Product'}
       />
 
       <View style={Styles.StuffInfoContainer}>
@@ -177,7 +187,8 @@ const PostWrite = props => {
           <View style={{flex: 1}}>
             <TextInput
               style={Styles.FindStuffDetailAreaInput}
-              onChangeText={value => setAddress(value)}
+              value={userInput.address}
+              onChangeText={value => setUserInput({['address']: value})}
             />
           </View>
         </View>
@@ -188,7 +199,8 @@ const PostWrite = props => {
           <View style={{flex: 1}}>
             <TextInput
               style={Styles.FindStuffDetailAreaInput}
-              onChangeText={value => setPhone(value)}
+              value={userInput.phone}
+              onChangeText={value => setUserInput({['phone']: value})}
               keyboardType={'numeric'}
             />
           </View>
@@ -200,7 +212,8 @@ const PostWrite = props => {
           <View style={{flex: 1}}>
             <TextInput
               style={Styles.FindStuffDetailAreaInput}
-              onChangeText={value => setEmail(value)}
+              value={userInput.email}
+              onChangeText={value => setUserInput({['email']: value})}
             />
           </View>
         </View>
@@ -212,7 +225,8 @@ const PostWrite = props => {
           <View style={{flex: 1}}>
             <TextInput
               style={Styles.FindStuffDetailAreaInput}
-              onChangeText={value => setPurchase(parseInt(value))}
+              value={userInput.purchase}
+              onChangeText={value => setUserInput({['purchase']: value})}
               keyboardType={'numeric'}
             />
           </View>
@@ -224,7 +238,8 @@ const PostWrite = props => {
           <View style={{flex: 1}}>
             <TextInput
               style={Styles.FindStuffDetailAreaInput}
-              onChangeText={value => setTracking(parseInt(value))}
+              value={userInput.tracking}
+              onChangeText={value => setUserInput({['tracking']: value})}
               keyboardType={'numeric'}
             />
           </View>
@@ -236,15 +251,25 @@ const PostWrite = props => {
           <View style={{flex: 1}}>
             <TextInput
               style={Styles.FindStuffDetailAreaInput}
-              onChangeText={value => setMerchant(value)}
+              value={userInput.merchant}
+              onChangeText={value => setUserInput({['merchant']: value})}
             />
           </View>
         </View>
-        <View style={Styles.FindStuffDetailAreaContainer}>
+        <View>
+          <CustomFormSelect
+            CustomFormSelectLabel={'Category'}
+            CustomFormSelectPlaceholder={'Select product category!'}
+            procFunc={value => setCategory(value)}
+            itemArr={catArr}
+          />
+        </View>
+        <View>
           <CustomFormSelect
             CustomFormSelectLabel={'Reason'}
             CustomFormSelectPlaceholder={'Select return up reason!'}
             procFunc={value => setReason(value)}
+            itemArr={reasonArr}
           />
         </View>
       </View>
@@ -255,7 +280,8 @@ const PostWrite = props => {
             style={Styles.FindStuffTextArea}
             multiline={true}
             numberOfLines={4}
-            onChangeText={value => setDescription(value)}
+            value={userInput.description}
+            onChangeText={value => setUserInput({['description']: value})}
           />
         </View>
         <View style={Styles.FindStuffImgUploadContainer}>

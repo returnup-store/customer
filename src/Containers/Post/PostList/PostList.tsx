@@ -6,7 +6,7 @@ import CatListBtn from 'src/Components/Buttons/CatListBtn/CatListBtn';
 import Styles from './PostListStyle';
 import Style from 'src/Style';
 import Header from 'src/Components/Header/Header';
-import StuffCard from 'src/Components/Card/StuffCard';
+import ProductCard from 'src/Components/Card/Product/ProductCard';
 import {tagJson} from 'src/config';
 import {baseUrl} from 'src/config';
 import {store} from 'src/Store';
@@ -121,7 +121,7 @@ export default function PostList(props) {
       </View>
       <View>
         {list.map((item, i) => (
-          <StuffCard key={i} navigation={props.navigation} item={item} />
+          <ProductCard key={i} navigation={props.navigation} item={item} />
         ))}
       </View>
     </ScrollView>

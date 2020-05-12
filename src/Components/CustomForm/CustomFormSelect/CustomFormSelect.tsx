@@ -3,10 +3,14 @@ import {View, Text} from 'react-native';
 import Styles from './CustomFormSelectStyle';
 import RNPickerSelect from 'react-native-picker-select';
 import {Colors} from 'src/Theme';
-import {reasonArr} from 'src/config';
 
 export default function CustomFormSelect(props) {
-  const {CustomFormSelectPlaceholder, CustomFormSelectLabel, procFunc} = props;
+  const {
+    CustomFormSelectPlaceholder,
+    CustomFormSelectLabel,
+    procFunc,
+    itemArr,
+  } = props;
   const placeholder = {
     label: CustomFormSelectPlaceholder,
     value: null,
@@ -21,7 +25,7 @@ export default function CustomFormSelect(props) {
         <RNPickerSelect
           placeholder={placeholder}
           onValueChange={procFunc}
-          items={reasonArr}
+          items={itemArr}
           doneText={'Select'}
         />
       </View>

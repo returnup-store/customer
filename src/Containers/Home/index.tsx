@@ -12,7 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import StuffCard from 'src/Components/Card/StuffCard';
+import ProductCard from 'src/Components/Card/Product/ProductCard';
 import HomeCarousel from 'src/Components/HomeCarousel/HomeCarousel';
 import styles from './HomeViewStyle';
 import {Images} from 'src/Theme';
@@ -114,7 +114,7 @@ function HomeView(props) {
   const ListArea = () => (
     <ScrollView style={{backgroundColor: '#fff', flex: 1}}>
       {list.map((item, i) => (
-        <StuffCard key={i} navigation={props.navigation} item={item} />
+        <ProductCard key={i} navigation={props.navigation} item={item} />
       ))}
     </ScrollView>
   );

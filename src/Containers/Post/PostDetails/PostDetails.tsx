@@ -152,7 +152,10 @@ export default function PostDetail(props) {
     <>
       <ScrollView style={{backgroundColor: '#f4f6f8'}}>
         <View>
-          <Header back={() => props.navigation.goBack()} label={'details'} />
+          <Header
+            back={() => props.navigation.goBack()}
+            label={'Product Details'}
+          />
 
           <View style={Styles.UserInfoContainer}>
             <View style={Styles.AvatarContainer}>

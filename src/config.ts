@@ -11,7 +11,16 @@ export const tagJson = [
   {Food: 'CatDigital'},
 ];
 export const reasonArr = [
-  {label: 'Cloth', value: 0},
+  {label: 'Wrong Color', value: 1},
+  {label: 'Wrong Size', value: 2},
+  {label: 'Damaged', value: 3},
+  {label: 'Low quality', value: 4},
+  {label: 'Other', value: 100},
+];
+
+export const catArr = [
   {label: 'Electronics', value: 1},
-  {label: 'Food', value: 2},
+  {label: 'Cloth', value: 2},
+  {label: 'Food', value: 3},
+  {label: 'Other', value: 100},
 ];

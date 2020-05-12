@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Images} from 'src/Theme';
-import Style from './CardStyle';
+import Style from './ProductCardStyle';
 import RoundBtn from 'src/Components/Buttons/RoundBtn/RoundBtn';
 import RectBtn from 'src/Components/Buttons/RectBtn/RectBtn';
 import {Card} from 'react-native-shadow-cards';
@@ -15,7 +15,7 @@ import {dotedTitle} from 'src/utils';
 
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 
-export default function StuffCard({item, navigation}) {
+export default function ProductCard({item, navigation}) {
   const [state, dispatch] = useContext(store);
 
   return (
@@ -56,6 +56,9 @@ export default function StuffCard({item, navigation}) {
         </View>
         <View>
           <View style={Style.CardDesAndImgContainer}>
+            <View>
+              <Text>{item.merchant}</Text>
+            </View>
             <View style={Style.CardDescription}>
               <Text numberOfLines={3} style={Style.CardDescriptionText}>
                 {item.description}
