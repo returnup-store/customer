@@ -176,7 +176,7 @@ export default function PostDetail(props) {
               <View style={Styles.UserNameContainer}>
                 <View style={Styles.UserNameWrap}>
                   <View>
-                    <Text>{item.title}</Text>
+                    <Text>{item.merchant}</Text>
                   </View>
                 </View>
                 <View style={{paddingTop: 5}}>

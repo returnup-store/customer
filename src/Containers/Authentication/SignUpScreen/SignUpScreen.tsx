@@ -14,6 +14,7 @@ import {baseUrl} from 'src/config';
 const axios = require('axios');
 
 export default function SignUpScreen(props) {
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [init, setInit] = useState(0);
@@ -43,15 +44,15 @@ export default function SignUpScreen(props) {
   };
 
   async function handleSubmit() {
-    if (otp === '' || phone === '' || password === '') {
-      Toast.show('input error！');
+    if (email === '' || phone === '' || password === '') {
+      Toast.show('input email!');
       return;
     }
 
-    if (!sentOtp) {
-      Toast.show('sent verification code！');
-      return;
-    }
+    // if (!sentOtp) {
+    //   Toast.show('sent verification code！');
+    //   return;
+    // }
 
     if (password !== confirmPassword) {
       Toast.show('input the same passwords');
@@ -62,6 +63,7 @@ export default function SignUpScreen(props) {
 
     axios
       .post(baseUrl + 'auth/signup', {
+        email,
         phone,
         password,
         otp,
@@ -77,7 +79,6 @@ export default function SignUpScreen(props) {
       })
       .catch(function(error) {
         console.log(error);
-        // Toast.show('错误');
       });
   }
 
@@ -95,15 +96,35 @@ export default function SignUpScreen(props) {
           <Text style={{flex: 1}} />
         </View>
         <View style={Styles.SignFormContainer}>
+          {false && (
+            <View style={Styles.FormInput}>
+              <CustomPhoneInput
+                CustomLabel={'Email'}
+                CustomPlaceholder={'Email'}
+                proc={value => setPhone(value)}
+                proc2={() => {
+                  sendOTP();
+                }}
+                init={init}
+              />
+            </View>
+          )}
           <View style={Styles.FormInput}>
-            <CustomPhoneInput
+            <CustomTextInput
               CustomLabel={'Email'}
               CustomPlaceholder={'Email'}
-              proc={value => setPhone(value)}
-              proc2={() => {
-                sendOTP();
+              proc={value => {
+                setEmail(value);
               }}
-              init={init}
+            />
+          </View>
+          <View style={Styles.FormInput}>
+            <CustomTextInput
+              CustomLabel={'Phone number'}
+              CustomPlaceholder={'Phone number'}
+              proc={value => {
+                setPhone(value);
+              }}
             />
           </View>
           <View style={Styles.FormInput}>
@@ -124,16 +145,17 @@ export default function SignUpScreen(props) {
               }}
             />
           </View>
-          <View style={Styles.FormInput}>
-            <CustomTextInput
-              CustomLabel={'Verification code'}
-              CustomPlaceholder={'Verification code'}
-              proc={value => {
-                setOtp(value);
-              }}
-            />
-          </View>
-
+          {false && (
+            <View style={Styles.FormInput}>
+              <CustomTextInput
+                CustomLabel={'Verification code'}
+                CustomPlaceholder={'Verification code'}
+                proc={value => {
+                  setOtp(value);
+                }}
+              />
+            </View>
+          )}
           <View style={Styles.SignBtn}>
             <FormCommonBtn CustomBtnTitle={'Sign up'} proc={handleSubmit} />
           </View>

@@ -16,7 +16,7 @@ import io from 'socket.io-client';
 // import Pushy from 'pushy-react-native';
 
 export default function SignInScreen(props) {
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [state, dispatch] = useContext(store);
@@ -30,14 +30,14 @@ export default function SignInScreen(props) {
   };
 
   const handleSubmit = async () => {
-    if (phone === '' || password === '') {
+    if (email === '' || password === '') {
       Toast.show('input error!');
       return;
     }
 
     await axios
       .post(baseUrl + 'auth/signin', {
-        phone,
+        email,
         password,
       })
       .then(async response => {
@@ -101,8 +101,6 @@ export default function SignInScreen(props) {
   };
 
   useEffect(() => {
-    props.navigation.setParams({from_screen: 'signin'});
-
     BackHandler.addEventListener('hardwareBackPress', () => {
       console.log('you clicked back button. go to the app home.');
       props.navigation.navigate('PostList');
@@ -120,7 +118,7 @@ export default function SignInScreen(props) {
           <CustomTextInput
             CustomLabel={'Email'}
             CustomPlaceholder={'Email'}
-            proc={value => setPhone(value)}
+            proc={value => setEmail(value)}
           />
         </View>
         <View style={Styles.SignPwdInput}>

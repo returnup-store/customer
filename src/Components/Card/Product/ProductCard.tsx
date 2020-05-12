@@ -45,7 +45,7 @@ export default function ProductCard({item, navigation}) {
               <EvilIconsIcon name="user" style={{fontSize: 40}} />
             </View>
             <View style={{flex: 6}}>
-              <Text>{item.title}</Text>
+              <Text>{item.merchant}</Text>
             </View>
             <View style={{flex: 4}}>
               <Text style={Style.Userdate}>
@@ -56,9 +56,6 @@ export default function ProductCard({item, navigation}) {
         </View>
         <View>
           <View style={Style.CardDesAndImgContainer}>
-            <View>
-              <Text>{item.merchant}</Text>
-            </View>
             <View style={Style.CardDescription}>
               <Text numberOfLines={3} style={Style.CardDescriptionText}>
                 {item.description}
